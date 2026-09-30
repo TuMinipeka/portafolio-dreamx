@@ -1,0 +1,31 @@
+"use client";
+
+import { Canvas } from "@react-three/fiber";
+import { flight } from "@/content/flight";
+import { Rig } from "./Rig";
+import { Runway } from "./Runway";
+import { Attendance, Circuit, Stars, Strata } from "./stations";
+
+const at = (id: (typeof flight)[number]["id"]) => flight.findIndex((w) => w.id === id);
+
+/**
+ * The continuous world behind the page. One canvas for the whole site, transparent
+ * so the CSS sky shows through; fog takes the same sky color so depth reads as air.
+ */
+export default function World() {
+  return (
+    <Canvas
+      dpr={[1, 1.75]}
+      gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
+      camera={{ fov: 40, near: 0.1, far: 200, position: [0, 1.2, 8] }}
+      style={{ pointerEvents: "none" }}
+    >
+      <Rig />
+      <Runway />
+      <Circuit index={at("apex")} />
+      <Attendance index={at("hub")} />
+      <Strata index={at("tenant")} />
+      <Stars index={at("contact")} />
+    </Canvas>
+  );
+}

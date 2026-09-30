@@ -9,6 +9,7 @@ import { SkyController } from "@/components/providers/SkyController";
 import { Altimeter } from "@/components/chrome/Altimeter";
 import { LocaleSwitch } from "@/components/chrome/LocaleSwitch";
 import { LogoMark } from "@/components/chrome/LogoMark";
+import { WorldMount } from "@/components/world/WorldMount";
 import "../globals.css";
 
 const anybody = Anybody({
@@ -77,7 +78,10 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           <LocaleSwitch locale={lang} label={dict.chrome.switchLocale} />
         </header>
 
-        <main id="main">{children}</main>
+        <WorldMount />
+        <main id="main" className="relative z-10">
+          {children}
+        </main>
 
         <Altimeter locale={lang} layers={dict.layers} />
         <SmoothScroll />
