@@ -8,11 +8,22 @@ import { Attendance, Circuit, Stars, Strata } from "./stations";
 
 const at = (id: (typeof flight)[number]["id"]) => flight.findIndex((w) => w.id === id);
 
+// Checked once: no WebGL means the page simply stays 2D. Everything still works.
+const supportsWebGL = (() => {
+  try {
+    const canvas = document.createElement("canvas");
+    return Boolean(canvas.getContext("webgl2") ?? canvas.getContext("webgl"));
+  } catch {
+    return false;
+  }
+})();
+
 /**
  * The continuous world behind the page. One canvas for the whole site, transparent
  * so the CSS sky shows through; fog takes the same sky color so depth reads as air.
  */
 export default function World() {
+  if (!supportsWebGL) return null;
   return (
     <Canvas
       dpr={[1, 1.75]}

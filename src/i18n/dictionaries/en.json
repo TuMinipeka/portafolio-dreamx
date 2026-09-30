@@ -115,5 +115,36 @@
     "toolsLabel": "Tools",
     "languagesLabel": "Languages",
     "languages": "Native Spanish, English B1"
+  },
+  "palette": {
+    "open": "Navigate",
+    "placeholder": "Search a section, a project or an action",
+    "empty": "Nothing matches. Try another word.",
+    "groups": {
+      "sections": "Sections",
+      "work": "Case studies",
+      "actions": "Actions"
+    },
+    "actions": {
+      "quick": "See the quick version",
+      "cv": "Download my CV",
+      "email": "Copy my email",
+      "copied": "Email copied",
+      "linkedin": "Open LinkedIn",
+      "github": "Open GitHub",
+      "locale": "Leer en español",
+      "home": "Back to the start"
+    },
+    "label": "Command palette"
+  },
+  "quick": {
+    "title": "Quick version",
+    "lead": "Everything that matters on one page.",
+    "full": "See the full version",
+    "projects": "Projects",
+    "trajectory": "Trajectory",
+    "contact": "Contact",
+    "seeCase": "Read the case",
+    "meta": "Daniel Mayorga, quick version"
   }
 }

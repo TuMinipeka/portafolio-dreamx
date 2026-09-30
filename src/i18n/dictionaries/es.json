@@ -115,5 +115,36 @@
     "toolsLabel": "Herramientas",
     "languagesLabel": "Idiomas",
     "languages": "Español nativo, inglés B1"
+  },
+  "palette": {
+    "open": "Navegar",
+    "placeholder": "Busca una sección, un proyecto o una acción",
+    "empty": "Nada coincide. Prueba con otra palabra.",
+    "groups": {
+      "sections": "Secciones",
+      "work": "Casos de estudio",
+      "actions": "Acciones"
+    },
+    "actions": {
+      "quick": "Ver la versión rápida",
+      "cv": "Descargar mi CV",
+      "email": "Copiar mi correo",
+      "copied": "Correo copiado",
+      "linkedin": "Abrir LinkedIn",
+      "github": "Abrir GitHub",
+      "locale": "Read in English",
+      "home": "Volver al inicio"
+    },
+    "label": "Paleta de comandos"
+  },
+  "quick": {
+    "title": "Versión rápida",
+    "lead": "Todo lo importante en una sola página.",
+    "full": "Ver la versión completa",
+    "projects": "Proyectos",
+    "trajectory": "Trayectoria",
+    "contact": "Contacto",
+    "seeCase": "Ver el caso",
+    "meta": "Daniel Mayorga, versión rápida"
   }
 }

@@ -10,6 +10,7 @@ import { Altimeter } from "@/components/chrome/Altimeter";
 import { LocaleSwitch } from "@/components/chrome/LocaleSwitch";
 import { LogoMark } from "@/components/chrome/LogoMark";
 import { WorldMount } from "@/components/world/WorldMount";
+import { CommandPalette } from "@/components/chrome/CommandPalette";
 import "../globals.css";
 
 const anybody = Anybody({
@@ -28,7 +29,7 @@ const instrument = Instrument_Sans({
 // script strips the build on the home page so the visitor watches it compile, unless they
 // prefer reduced motion, in which case the page is locked in its built state.
 const FULL_BUILD = "layout type color motion";
-const startUnbuilt = `(function(){var d=document.documentElement;if(!/^\/(es|en)\/?$/.test(location.pathname))return;try{if(matchMedia("(prefers-reduced-motion: reduce)").matches){d.setAttribute("data-locked","");return}}catch(e){}d.setAttribute("data-build","");d.style.setProperty("--build","0")})()`;
+const startUnbuilt = `(function(){var d=document.documentElement;if(location.pathname.split("/").filter(Boolean).length!==1)return;try{if(matchMedia("(prefers-reduced-motion: reduce)").matches){d.setAttribute("data-locked","");return}}catch(e){}d.setAttribute("data-build","");d.style.setProperty("--build","0")})()`;
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -76,7 +77,16 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           <Link href={`/${lang}`} aria-label={dict.chrome.home}>
             <LogoMark className="h-7 w-auto" />
           </Link>
-          <LocaleSwitch locale={lang} label={dict.chrome.switchLocale} />
+          <div className="flex items-center gap-5 md:gap-7">
+            <Link
+              href={`/${lang}/quick`}
+              className="hidden text-step--1 underline decoration-1 underline-offset-4 hover:decoration-2 sm:inline"
+            >
+              {dict.quick.title}
+            </Link>
+            <CommandPalette lang={lang} dict={dict} />
+            <LocaleSwitch locale={lang} label={dict.chrome.switchLocale} />
+          </div>
         </header>
 
         <WorldMount />
