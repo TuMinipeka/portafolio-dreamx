@@ -135,7 +135,17 @@
       "locale": "Leer en español",
       "home": "Back to the start"
     },
-    "label": "Command palette"
+    "label": "Command palette",
+    "ask": {
+      "group": "Assistant",
+      "item": "Ask the portfolio",
+      "thinking": "Thinking…",
+      "unavailable": "The assistant isn't available right now. You can email Daniel instead.",
+      "limited": "You've asked several questions in a row. Try again in a few minutes.",
+      "failed": "I couldn't answer this time. Try again.",
+      "back": "Ask another question",
+      "disclaimer": "AI-generated answer based on this site's content."
+    }
   },
   "quick": {
     "title": "Quick version",

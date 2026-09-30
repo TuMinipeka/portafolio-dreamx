@@ -135,7 +135,17 @@
       "locale": "Read in English",
       "home": "Volver al inicio"
     },
-    "label": "Paleta de comandos"
+    "label": "Paleta de comandos",
+    "ask": {
+      "group": "Asistente",
+      "item": "Preguntarle al portafolio",
+      "thinking": "Pensando…",
+      "unavailable": "El asistente no está disponible ahora mismo. Puedes escribirle a Daniel a su correo.",
+      "limited": "Hiciste varias preguntas seguidas. Intenta de nuevo en unos minutos.",
+      "failed": "No pude responder esta vez. Intenta de nuevo.",
+      "back": "Hacer otra pregunta",
+      "disclaimer": "Respuesta generada con IA a partir del contenido de este sitio."
+    }
   },
   "quick": {
     "title": "Versión rápida",
