@@ -1,0 +1,107 @@
+{
+  "labels": {
+    "back": "Volver al vuelo",
+    "role": "Mi parte",
+    "team": "Equipo",
+    "year": "Año",
+    "stack": "Con qué está hecho",
+    "challenge": "El reto",
+    "decisions": "Decisiones de diseño",
+    "outcome": "El resultado",
+    "next": "Siguiente estación",
+    "open": "Ver el caso completo",
+    "privateNote": "El código de este proyecto es privado. Lo que ves en el fondo es una representación del sistema, no una captura."
+  },
+  "apex": {
+    "intro": "Un simulador de clasificación de Fórmula 1 para escritorio. Veinte pilotos pelean la pole y el resultado depende de su habilidad, de su coche, del circuito, de los ajustes que elijas y de un clima que cambia vuelta a vuelta.",
+    "year": "2026",
+    "team": "Proyecto en equipo, Campuslands",
+    "role": "Diseño de la interfaz, pantallas en JavaFX, dominio y motor de simulación",
+    "challenge": "La especificación pedía administrar pilotos, vehículos y circuitos. El reto de verdad era que esos datos importaran: que ajustar la aerodinámica o la presión de las llantas cambiara el resultado de la sesión, y que todo corriera sin congelar la ventana.",
+    "sections": [
+      {
+        "heading": "Primero el diseño, después el código",
+        "body": "Antes de escribir una línea de JavaFX diseñamos las pantallas en Figma: la carrera en vivo, la exploración de pilotos y circuitos, la gestión de equipos y el historial. Ese mockup se volvió el contrato de las 24 vistas FXML, y el menú principal se puede recorrer solo con el teclado.",
+        "image": { "src": "/work/apex/mockup.webp", "alt": "Mockup en Figma de la pantalla de carrera: tres cámaras de pilotos, semáforo de salida y botón para iniciar la simulación.", "caption": "El mockup de la pantalla de carrera, diseñado antes de programarla." }
+      },
+      {
+        "heading": "Un motor que se puede explicar",
+        "body": "El tiempo de cada vuelta sale de una fórmula con factores de circuito, clima, aerodinámica, presión, combustible y piloto. El factor de cada circuito viene de su récord real: Mónaco queda en 1,98 y Monza en 1,32. Hay una variación de ±0,5 %, suficiente para que dos compañeros de equipo cambien de puesto pero no para que el último coche haga la pole. Y ningún ajuste es gratis: más carga aerodinámica mejora el tiempo pero dispara el consumo.",
+        "image": { "src": "/work/apex/setup.webp", "alt": "Pantalla de configuración con circuito dibujado por el usuario, vehículo, piloto y puesta a punto.", "caption": "Configuración de la sesión. El circuito lo dibujó un usuario con el mouse." }
+      },
+      {
+        "heading": "La sesión en vivo",
+        "body": "El dominio avanza en 20 microsectores por vuelta, mientras la interfaz dibuja 20 fotogramas por segundo. El clima evoluciona, la pista gana o pierde agarre y hay 28 eventos posibles con peso según el contexto. La radio del equipo le habla al piloto que fijes. Todo corre en segundo plano: la interfaz se enlaza al progreso de la tarea en lugar de esperar por ella.",
+        "image": { "src": "/work/apex/live.webp", "alt": "Sesión en vivo: mapa del circuito con los coches, clasificación, clima con lluvia ligera y mensaje de radio del equipo.", "caption": "Vuelta 10 de 20 con lluvia ligera. La radio avisa que Tsunoda perdió una posición." }
+      },
+      {
+        "heading": "Resultados que se pueden auditar",
+        "body": "Al terminar, la clasificación queda con tiempos por sector, neumáticos, paradas y eventos de cada piloto, y un informe con su estrategia. El historial conserva los nombres de cada sesión aunque luego borres al piloto del catálogo.",
+        "image": { "src": "/work/apex/results.webp", "alt": "Tabla de resultados con tiempos por sector y el informe del piloto seleccionado.", "caption": "Resultados finales con el informe de estrategia del piloto seleccionado." }
+      }
+    ],
+    "decisions": [
+      { "title": "Arquitectura hexagonal", "body": "El dominio no conoce JavaFX ni JDBC. Habla con el exterior a través de puertos, así que la simulación se prueba sin abrir una ventana ni una base de datos." },
+      { "title": "Las reglas viven junto a los datos", "body": "Cada opción de configuración es un enum que trae sus propios factores. Añadir un modo de conducción no obliga a tocar la fórmula ni a escribir un switch." },
+      { "title": "Fallar en voz alta", "body": "Si MySQL no responde, la app arranca en memoria y lo avisa. Un cambio que no llegó a la base nunca pasa desapercibido." }
+    ],
+    "outcome": [
+      { "value": "230", "label": "pruebas en verde" },
+      { "value": "59", "label": "historias de usuario implementadas" },
+      { "value": "24", "label": "vistas diseñadas y construidas" },
+      { "value": "6", "label": "patrones de diseño aplicados" }
+    ]
+  },
+  "hub": {
+    "intro": "La plataforma que sostuvo la hackathon de Campuslands: registro de asistencia en tiempo real, grupos, retos, certificados digitales y un dashboard para los organizadores.",
+    "year": "2026",
+    "team": "Equipo de cuatro personas",
+    "role": "Frontend: registro de asistencia, vistas por rol y dashboard ejecutivo",
+    "challenge": "Campuslands iba a recibir a cientos de participantes durante dos días. Registrar la asistencia, armar grupos, asignar retos y entregar certificados a mano no iba a escalar, y la fecha del evento no se podía mover.",
+    "sections": [
+      { "heading": "Asistencia en tiempo real", "body": "Cada participante hace check-in y los organizadores ven en vivo quién está en el evento. Es lo que representa la escena del fondo: gente que llega de todas partes y pasa por una sola puerta." },
+      { "heading": "Cada rol ve lo suyo", "body": "La plataforma tiene control de acceso por roles. Mi trabajo fue que cada persona encontrara solo lo que le corresponde, sin pantallas llenas de opciones que no puede usar." },
+      { "heading": "Un dashboard para decidir", "body": "Los organizadores tenían métricas del evento en una sola vista, para tomar decisiones mientras pasaba y no al día siguiente." },
+      { "heading": "Certificados sin trabajo manual", "body": "Al terminar, los certificados digitales se generan solos para quien participó." }
+    ],
+    "decisions": [
+      { "title": "Una fecha que no se mueve", "body": "Con un evento real como fecha de entrega no hay segunda oportunidad. Priorizamos lo que el evento necesitaba el primer día." },
+      { "title": "Usuarios reales desde el primer minuto", "body": "Fue nuestro primer despliegue en producción. La interfaz tenía que ser clara para gente que la usaba por primera vez y con prisa." },
+      { "title": "Trabajar en equipo de verdad", "body": "Cuatro personas sobre el mismo producto, con partes que dependían unas de otras y una sola fecha de entrega." }
+    ],
+    "outcome": [
+      { "value": "2", "label": "días de evento en producción" },
+      { "value": "Cientos", "label": "de participantes registrados" },
+      { "value": "4", "label": "personas en el equipo" },
+      { "value": "1.º", "label": "despliegue en producción del equipo" }
+    ]
+  },
+  "tenant": {
+    "intro": "Una base de datos en PostgreSQL para que una consultora de seguridad laboral y vial administre a muchas empresas a la vez, sin que ninguna vea la información de otra.",
+    "year": "2026",
+    "team": "Proyecto individual",
+    "role": "Modelado, normalización, esquema y lógica en PL/pgSQL",
+    "challenge": "Cada empresa cliente necesita llevar su propio sistema de gestión: módulos, plantillas de documentos y avance de cumplimiento. Con hojas de cálculo por cliente aparecen datos duplicados, inconsistencias y ninguna forma confiable de saber qué tan al día está cada una.",
+    "sections": [
+      {
+        "heading": "Compartido una vez, aislado siempre",
+        "body": "Los catálogos normativos (sistemas, módulos, formatos y etapas del ciclo PHVA) se definen una sola vez. Todo lo operativo de cada empresa (personas, cargos, documentos e indicadores) queda aislado por diseño de las tablas. Es la escena del fondo: un núcleo compartido e islas que nunca se tocan entre sí.",
+        "image": { "src": "/work/tenant/relational.webp", "alt": "Modelo relacional con tres zonas: catálogos de parametrización, núcleo multi-tenant y control y seguimiento.", "caption": "Modelo relacional: catálogos compartidos arriba, núcleo por empresa en el medio, control y seguimiento abajo." }
+      },
+      { "heading": "Normalizado hasta cuarta forma normal", "body": "El razonamiento está documentado forma por forma. Toda clave primaria se llama id_<entidad> y toda clave foránea conserva ese nombre, así que cualquier consulta se escribe con JOIN USING y sin alias." },
+      { "heading": "Las reglas viven en el esquema", "body": "Una persona solo puede ocupar cargos de su propia empresa gracias a una clave foránea compuesta. El porcentaje de cumplimiento siempre está entre 0 y 100. Un documento no puede tener dos bloqueos de edición activos: lo impide un índice único parcial, no la aplicación." },
+      { "heading": "Lógica probada, no supuesta", "body": "15 procedimientos, 8 funciones y 15 triggers en PL/pgSQL, cada uno con el caso que debe fallar y el que debe pasar. Las pruebas corren al cargar el script y terminan en ROLLBACK, así que no dejan rastro. El script es idempotente y se levanta con Docker." }
+    ],
+    "decisions": [
+      { "title": "Aislamiento por estructura", "body": "Las claves foráneas compuestas incluyen a la empresa. No depende de que alguien recuerde filtrar por empresa en cada consulta." },
+      { "title": "Índices únicos parciales", "body": "Un solo bloqueo activo por documento y una sola plantilla activa por formato, garantizado por el motor." },
+      { "title": "Vistas materializadas para reportes", "body": "Las preguntas frecuentes, como qué porcentaje de documentos tiene finalizados cada empresa, se responden con una sola consulta." }
+    ],
+    "outcome": [
+      { "value": "20", "label": "tablas normalizadas hasta 4FN" },
+      { "value": "38", "label": "procedimientos, funciones y triggers probados" },
+      { "value": "3", "label": "capas: catálogos, núcleo y control" },
+      { "value": "1", "label": "script idempotente para levantarlo todo" }
+    ]
+  }
+}

@@ -14,6 +14,9 @@ type FlightState = {
   /** Compile stage on the ground: 0 raw HTML, 1 layout, 2 type, 3 color, 4 motion. */
   stage: number;
   setStage: (stage: number) => void;
+  /** How present the 3D world is (1 full, lower while reading a case study). */
+  presence: number;
+  setPresence: (presence: number) => void;
 };
 
 export const useFlight = create<FlightState>((set) => ({
@@ -25,4 +28,6 @@ export const useFlight = create<FlightState>((set) => ({
   setLenis: (lenis) => set({ lenis }),
   stage: 4,
   setStage: (stage) => set({ stage }),
+  presence: 1,
+  setPresence: (presence) => set({ presence }),
 }));

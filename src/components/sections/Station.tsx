@@ -1,4 +1,6 @@
+import Link from "next/link";
 import type { Dictionary } from "@/i18n/dictionaries";
+import type { Locale } from "@/i18n/config";
 import type { StationId, stations } from "@/content/flight";
 
 // The higher the station, the wider and lighter its name is set:
@@ -13,9 +15,11 @@ type Props = {
   station: (typeof stations)[number];
   copy: Dictionary["stations"][StationId];
   labels: Dictionary["station"];
+  lang: Locale;
+  openLabel: string;
 };
 
-export function Station({ station, copy, labels }: Props) {
+export function Station({ station, copy, labels, lang, openLabel }: Props) {
   const titleId = `${station.id}-title`;
 
   return (
@@ -56,14 +60,22 @@ export function Station({ station, copy, labels }: Props) {
           </div>
         </dl>
 
-        <a
-          href={station.href}
-          target="_blank"
-          rel="noreferrer"
-          className="self-start text-step-0 font-medium underline decoration-1 underline-offset-4 hover:decoration-2"
-        >
-          {copy.linkLabel}
-        </a>
+        <div className="flex flex-col items-start gap-3">
+          <Link
+            href={`/${lang}/work/${station.id}`}
+            className="text-step-1 font-medium underline decoration-1 underline-offset-8 hover:decoration-2"
+          >
+            {openLabel}
+          </Link>
+          <a
+            href={station.href}
+            target="_blank"
+            rel="noreferrer"
+            className="text-step-0 underline decoration-1 underline-offset-4 opacity-80 hover:decoration-2 hover:opacity-100"
+          >
+            {copy.linkLabel}
+          </a>
+        </div>
       </div>
     </section>
   );

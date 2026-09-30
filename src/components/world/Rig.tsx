@@ -23,8 +23,10 @@ export function Rig() {
   }, [scene, camera]);
 
   useFrame((_, delta) => {
-    const goal = useFlight.getState().progress;
-    const progress = MathUtils.damp(atmosphere.progress, goal, 4, Math.min(delta, 0.5));
+    const { progress: goal, presence } = useFlight.getState();
+    const dt = Math.min(delta, 0.5);
+    const progress = MathUtils.damp(atmosphere.progress, goal, 4, dt);
+    atmosphere.presence = MathUtils.damp(atmosphere.presence, presence, 5, dt);
     sampleAtmosphere(progress);
 
     const y = progress * SEGMENTS * GAP + 1.2;

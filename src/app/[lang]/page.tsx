@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { hasLocale } from "@/i18n/config";
-import { getDictionary } from "@/i18n/dictionaries";
+import { getCases, getDictionary } from "@/i18n/dictionaries";
 import { stations } from "@/content/flight";
 import { Hero } from "@/components/sections/Hero";
 import { Logbook } from "@/components/sections/Logbook";
@@ -10,7 +10,7 @@ import { Contact } from "@/components/sections/Contact";
 export default async function Home({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const dict = await getDictionary(lang);
+  const [dict, cases] = await Promise.all([getDictionary(lang), getCases(lang)]);
 
   return (
     <>
@@ -22,6 +22,8 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
           station={station}
           copy={dict.stations[station.id]}
           labels={dict.station}
+          lang={lang}
+          openLabel={cases.labels.open}
         />
       ))}
       <Contact copy={dict.contact} />

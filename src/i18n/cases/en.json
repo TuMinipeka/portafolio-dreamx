@@ -1,0 +1,107 @@
+{
+  "labels": {
+    "back": "Back to the flight",
+    "role": "My part",
+    "team": "Team",
+    "year": "Year",
+    "stack": "Built with",
+    "challenge": "The challenge",
+    "decisions": "Design decisions",
+    "outcome": "The outcome",
+    "next": "Next station",
+    "open": "Read the full case",
+    "privateNote": "This project's code is private. What you see in the background is a representation of the system, not a screenshot."
+  },
+  "apex": {
+    "intro": "A desktop Formula 1 qualifying simulator. Twenty drivers fight for pole, and the result depends on their skill, their car, the track, the setup you choose and weather that shifts lap by lap.",
+    "year": "2026",
+    "team": "Team project, Campuslands",
+    "role": "Interface design, JavaFX screens, domain and simulation engine",
+    "challenge": "The spec asked for managing drivers, cars and tracks. The real challenge was making that data matter: changing the aero or tire pressure had to change the session's result, and everything had to run without freezing the window.",
+    "sections": [
+      {
+        "heading": "Design first, code second",
+        "body": "Before writing any JavaFX we designed the screens in Figma: the live race, exploring drivers and tracks, team management and history. That mockup became the contract for 24 FXML views, and the main menu can be driven entirely from the keyboard.",
+        "image": { "src": "/work/apex/mockup.webp", "alt": "Figma mockup of the race screen: three driver cameras, start lights and a button to start the simulation.", "caption": "The race screen mockup, designed before it was built." }
+      },
+      {
+        "heading": "An engine you can explain",
+        "body": "Each lap time comes from a formula with track, weather, aero, pressure, fuel and driver factors. Each track's factor comes from its real lap record: Monaco lands at 1.98, Monza at 1.32. A ±0.5% variation lets teammates swap places without letting the slowest car take pole. And no setting is free: more downforce improves the lap but burns more fuel.",
+        "image": { "src": "/work/apex/setup.webp", "alt": "Setup screen with a user-drawn track, car, driver and car setup.", "caption": "Session setup. A user drew this track with the mouse." }
+      },
+      {
+        "heading": "The live session",
+        "body": "The domain advances in 20 micro-sectors per lap while the interface draws 20 frames per second. Weather evolves, the track gains or loses grip, and 28 events are weighted by context. Team radio talks to the driver you pin. It all runs in the background: the interface binds to the task's progress instead of waiting on it.",
+        "image": { "src": "/work/apex/live.webp", "alt": "Live session: track map with cars, standings, light rain and a team radio message.", "caption": "Lap 10 of 20 in light rain. Team radio reports Tsunoda just lost a place." }
+      },
+      {
+        "heading": "Results you can audit",
+        "body": "When it ends, the standings keep sector times, tires, stops and events for every driver, plus a report on their strategy. History keeps each session's names even if you later delete the driver from the catalog.",
+        "image": { "src": "/work/apex/results.webp", "alt": "Results table with sector times and the selected driver's report.", "caption": "Final results with the selected driver's strategy report." }
+      }
+    ],
+    "decisions": [
+      { "title": "Hexagonal architecture", "body": "The domain knows nothing about JavaFX or JDBC. It talks to the outside through ports, so the simulation is tested without opening a window or a database." },
+      { "title": "Rules live next to the data", "body": "Every setup option is an enum carrying its own factors. Adding a driving mode doesn't mean touching the formula or writing a switch." },
+      { "title": "Fail loudly", "body": "If MySQL doesn't answer, the app starts in memory and says so. A change that never reached the database never goes unnoticed." }
+    ],
+    "outcome": [
+      { "value": "230", "label": "passing tests" },
+      { "value": "59", "label": "user stories implemented" },
+      { "value": "24", "label": "views designed and built" },
+      { "value": "6", "label": "design patterns applied" }
+    ]
+  },
+  "hub": {
+    "intro": "The platform behind the Campuslands hackathon: real-time attendance check-in, teams, challenges, digital certificates and a dashboard for the organizers.",
+    "year": "2026",
+    "team": "Team of four",
+    "role": "Frontend: attendance check-in, role-based views and the executive dashboard",
+    "challenge": "Campuslands was hosting hundreds of participants over two days. Tracking attendance, forming teams, assigning challenges and issuing certificates by hand wouldn't scale, and the event date couldn't move.",
+    "sections": [
+      { "heading": "Attendance in real time", "body": "Every participant checks in and organizers see who's at the event, live. That's the scene in the background: people arriving from everywhere and passing through a single gate." },
+      { "heading": "Each role sees its own", "body": "The platform uses role-based access control. My job was making sure each person found only what applied to them, without screens full of options they can't use." },
+      { "heading": "A dashboard to decide with", "body": "Organizers had the event's metrics in one view, so they could make decisions while it was happening, not the next day." },
+      { "heading": "Certificates without manual work", "body": "When it ended, digital certificates were generated automatically for everyone who took part." }
+    ],
+    "decisions": [
+      { "title": "A date that doesn't move", "body": "With a real event as the deadline there's no second chance. We prioritized what the event needed on day one." },
+      { "title": "Real users from minute one", "body": "It was our first production deploy. The interface had to be clear for people using it for the first time, in a hurry." },
+      { "title": "Real teamwork", "body": "Four people on the same product, with parts depending on each other and a single delivery date." }
+    ],
+    "outcome": [
+      { "value": "2", "label": "days of the event in production" },
+      { "value": "Hundreds", "label": "of participants checked in" },
+      { "value": "4", "label": "people on the team" },
+      { "value": "1st", "label": "production deploy for the team" }
+    ]
+  },
+  "tenant": {
+    "intro": "A PostgreSQL database that lets an occupational and road safety consultancy manage many client companies at once, without any of them seeing another's data.",
+    "year": "2026",
+    "team": "Solo project",
+    "role": "Modeling, normalization, schema and PL/pgSQL logic",
+    "challenge": "Each client company runs its own management system: modules, document templates and compliance progress. With a spreadsheet per client you get duplicated data, inconsistencies and no reliable way to know how up to date each one is.",
+    "sections": [
+      {
+        "heading": "Shared once, isolated always",
+        "body": "The regulatory catalogs (systems, modules, formats and PDCA stages) are defined once. Everything operational for each company (people, positions, documents and indicators) is isolated by the table design itself. That's the scene in the background: a shared core and islands that never touch each other.",
+        "image": { "src": "/work/tenant/relational.webp", "alt": "Relational model in three zones: parameter catalogs, multi-tenant core, and control and tracking.", "caption": "Relational model: shared catalogs on top, the per-company core in the middle, control and tracking below." }
+      },
+      { "heading": "Normalized to fourth normal form", "body": "The reasoning is documented form by form. Every primary key is named id_<entity> and every foreign key keeps that name, so any query is written with JOIN USING and no aliases." },
+      { "heading": "Rules live in the schema", "body": "A person can only hold positions in their own company, thanks to a composite foreign key. Compliance is always between 0 and 100. A document can't have two active edit locks: a partial unique index prevents it, not the application." },
+      { "heading": "Logic that's tested, not assumed", "body": "15 procedures, 8 functions and 15 triggers in PL/pgSQL, each with the case that must fail and the one that must pass. Tests run when the script loads and end in ROLLBACK, so they leave no trace. The script is idempotent and runs on Docker." }
+    ],
+    "decisions": [
+      { "title": "Isolation by structure", "body": "Composite foreign keys include the company. Isolation doesn't depend on someone remembering to filter by company in every query." },
+      { "title": "Partial unique indexes", "body": "One active lock per document and one active template per format, guaranteed by the engine." },
+      { "title": "Materialized views for reports", "body": "Frequent questions, like what share of documents each company has finalized, are answered with a single query." }
+    ],
+    "outcome": [
+      { "value": "20", "label": "tables normalized to 4NF" },
+      { "value": "38", "label": "tested procedures, functions and triggers" },
+      { "value": "3", "label": "layers: catalogs, core and control" },
+      { "value": "1", "label": "idempotent script to stand it all up" }
+    ]
+  }
+}

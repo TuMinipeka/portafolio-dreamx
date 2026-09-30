@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { flight } from "@/content/flight";
 import { useFlight } from "@/store/flight";
 
@@ -17,12 +18,20 @@ const logAlt = flight.map((w) => Math.log10(w.altitude + 10));
  * Maps scroll position to a point on the flight path. Each waypoint is
  * "reached" when its section is centered in the viewport; between waypoints
  * the sky color and altitude are interpolated.
+ *
+ * On a case study page (marked with data-station-page) the flight is parked at
+ * that station instead, and the 3D world fades back as the visitor starts reading.
  */
 export function SkyController() {
   const setFlight = useFlight((s) => s.setFlight);
+  const pathname = usePathname();
 
   useEffect(() => {
     const root = document.documentElement;
+    const parked = document.querySelector<HTMLElement>("[data-station-page]");
+    if (parked) return park(parked.dataset.stationPage ?? "");
+    useFlight.getState().setPresence(1);
+
     let anchors: number[] = [];
     let frame = 0;
 
@@ -79,7 +88,28 @@ export function SkyController() {
       resize.disconnect();
       window.removeEventListener("scroll", onScroll);
     };
-  }, [setFlight]);
+  }, [setFlight, pathname]);
 
   return null;
+}
+
+function park(id: string) {
+  const root = document.documentElement;
+  const index = Math.max(0, flight.findIndex((w) => w.id === id));
+  const waypoint = flight[index];
+  const { setFlight, setPresence } = useFlight.getState();
+
+  root.style.setProperty("--sky", waypoint.sky);
+  root.style.setProperty("--ink", waypoint.dark ? "var(--color-cloud)" : "var(--color-graphite)");
+  root.dataset.sky = waypoint.dark ? "dark" : "light";
+  setFlight({ altitude: waypoint.altitude, layer: waypoint.layer, progress: index / (flight.length - 1) });
+
+  // Full presence over the case header, then a faint backdrop behind the reading.
+  const onScroll = () => {
+    const t = Math.min(1, window.scrollY / (window.innerHeight * 0.8));
+    setPresence(1 - t * 0.82);
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+  return () => window.removeEventListener("scroll", onScroll);
 }

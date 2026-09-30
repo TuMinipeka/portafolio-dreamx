@@ -25,10 +25,10 @@ const instrument = Instrument_Sans({
 });
 
 // Server HTML ships fully built (works without JS). Before first paint this
-// script strips the build so the visitor watches it compile, unless they
+// script strips the build on the home page so the visitor watches it compile, unless they
 // prefer reduced motion, in which case the page is locked in its built state.
 const FULL_BUILD = "layout type color motion";
-const startUnbuilt = `(function(){var d=document.documentElement;try{if(matchMedia("(prefers-reduced-motion: reduce)").matches){d.setAttribute("data-locked","");return}}catch(e){}d.setAttribute("data-build","");d.style.setProperty("--build","0")})()`;
+const startUnbuilt = `(function(){var d=document.documentElement;if(!/^\/(es|en)\/?$/.test(location.pathname))return;try{if(matchMedia("(prefers-reduced-motion: reduce)").matches){d.setAttribute("data-locked","");return}}catch(e){}d.setAttribute("data-build","");d.style.setProperty("--build","0")})()`;
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -71,7 +71,8 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
 
         <header
           data-chrome
-          className="fixed inset-x-0 top-0 z-40 flex items-center justify-between px-5 py-4 text-(--ink) md:px-8">
+          className="fixed inset-x-0 top-0 z-40 flex items-center justify-between bg-linear-to-b from-(--sky) from-40% to-transparent px-5 pt-4 pb-8 text-(--ink) md:px-8"
+        >
           <Link href={`/${lang}`} aria-label={dict.chrome.home}>
             <LogoMark className="h-7 w-auto" />
           </Link>

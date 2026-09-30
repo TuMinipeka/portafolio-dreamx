@@ -21,6 +21,8 @@ export const atmosphere = {
   darkness: 0,
   /** Smoothed flight progress, 0 at the ground, 1 at the Kármán line. */
   progress: 0,
+  /** Smoothed world presence; every object's opacity is multiplied by it. */
+  presence: 1,
 };
 
 export function sampleAtmosphere(progress: number) {
@@ -43,5 +45,5 @@ export const waypointY = (index: number) => index * GAP;
  */
 export function proximity(objectWaypoint: number, reach = 0.75) {
   const distance = Math.abs(atmosphere.progress * SEGMENTS - objectWaypoint);
-  return 1 - MathUtils.smoothstep(distance, reach * 0.4, reach);
+  return (1 - MathUtils.smoothstep(distance, reach * 0.4, reach)) * atmosphere.presence;
 }
