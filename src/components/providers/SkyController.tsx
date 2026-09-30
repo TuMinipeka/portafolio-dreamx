@@ -31,9 +31,11 @@ export function SkyController() {
         const el = document.getElementById(w.id);
         if (!el) return 0;
         const rect = el.getBoundingClientRect();
-        return rect.top + window.scrollY + rect.height / 2 - window.innerHeight / 2;
+        const top = rect.top + window.scrollY;
+        // The hero is a tall compile track: we only leave the ground once it ends.
+        if (w.id === "hero") return Math.max(0, top + rect.height - window.innerHeight);
+        return top + rect.height / 2 - window.innerHeight / 2;
       });
-      anchors[0] = 0;
       update();
     };
 

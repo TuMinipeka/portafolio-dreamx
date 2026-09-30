@@ -14,14 +14,19 @@
     "boundary": "Capa límite",
     "troposphere": "Troposfera",
     "stratosphere": "Estratosfera",
-    "karman": "Línea de Kármán"
+    "karman": "Línea de Kármán",
+    "runway": "Pista"
   },
   "hero": {
     "name": "Daniel Santiago Mayorga Tellez",
     "role": "Software developer junior",
-    "manifesto": ["Ingeniería con los pies en la tierra.", "Ideas a gran altitud."],
+    "manifesto": [
+      "Ingeniería con los pies en la tierra.",
+      "Ideas a gran altitud."
+    ],
     "intro": "Diseño interfaces y construyo el sistema que las sostiene, desde la base de datos hasta la última animación.",
-    "scrollHint": "Desliza para despegar"
+    "index": "En este vuelo",
+    "contact": "Contacto"
   },
   "station": {
     "role": "Mi parte",
@@ -34,7 +39,11 @@
       "kind": "Simulador de clasificación de Fórmula 1",
       "summary": "Una app de escritorio donde veinte pilotos pelean la pole según su habilidad, su coche, el circuito y un clima que cambia vuelta a vuelta. Los circuitos se dibujan con el mouse.",
       "role": "Diseñé los mockups y las pantallas en JavaFX, y trabajé en el dominio y el motor de simulación.",
-      "facts": ["230 pruebas en verde", "Arquitectura hexagonal", "28 eventos de carrera"],
+      "facts": [
+        "230 pruebas en verde",
+        "Arquitectura hexagonal",
+        "28 eventos de carrera"
+      ],
       "linkLabel": "Ver el código en GitHub"
     },
     "hub": {
@@ -42,7 +51,11 @@
       "kind": "Plataforma para la hackathon de Campuslands",
       "summary": "Controló la asistencia en tiempo real, los grupos, los retos y los certificados de cientos de participantes durante los dos días del evento.",
       "role": "Construí el frontend: el registro de asistencia, las vistas por rol y el dashboard ejecutivo.",
-      "facts": ["Primer despliegue en producción", "Cientos de participantes", "Equipo de cuatro"],
+      "facts": [
+        "Primer despliegue en producción",
+        "Cientos de participantes",
+        "Equipo de cuatro"
+      ],
       "linkLabel": "Ver la publicación en LinkedIn"
     },
     "tenant": {
@@ -50,7 +63,11 @@
       "kind": "Plataforma multi-tenant de gestión SST y PESV",
       "summary": "Una base de datos donde muchas empresas llevan su sistema de seguridad laboral y vial sin ver nunca la información de las demás.",
       "role": "Modelé los datos, los normalicé hasta cuarta forma normal y programé las reglas de negocio en PL/pgSQL.",
-      "facts": ["20 tablas en 4FN", "38 procedimientos, funciones y triggers", "Aislamiento por empresa"],
+      "facts": [
+        "20 tablas en 4FN",
+        "38 procedimientos, funciones y triggers",
+        "Aislamiento por empresa"
+      ],
       "linkLabel": "Ver el código en GitHub"
     }
   },
@@ -59,6 +76,44 @@
     "body": "Lo que sigue lo podemos construir juntos. Busco un equipo donde aprender rápido y entregar software que la gente use.",
     "linkedin": "Escríbeme en LinkedIn",
     "github": "Mi GitHub",
-    "cv": "Descargar mi CV"
+    "cv": "Descargar mi CV",
+    "email": "Escríbeme a"
+  },
+  "compile": {
+    "title": "Compilando el portafolio",
+    "steps": [
+      "HTML: estructura y contenido",
+      "Layout: cuadrícula de 12 columnas",
+      "Tipografía: Anybody e Instrument Sans",
+      "Color: el cielo a nivel del suelo",
+      "Movimiento: listo para despegar"
+    ],
+    "hint": "Desliza para construir la página",
+    "skip": "Saltar la construcción"
+  },
+  "log": {
+    "name": "Bitácora",
+    "heading": "Empecé armando robots.",
+    "body": "Antes de escribir software construía cosas que se mueven. De ahí viene mi forma de trabajar: entender el sistema completo, probarlo en el mundo real y ajustarlo hasta que funcione.",
+    "entries": [
+      {
+        "when": "Feb 2024 a may 2025",
+        "where": "Semillero de robótica, Universidad de Investigación y Desarrollo (UDI)",
+        "what": "Integré la electrónica de un robot inspirado en WALL-E reutilizando las piezas de un carro a control remoto, con control de movimiento e iluminación. Ganó el primer puesto en el concurso de ingeniería electrónica de la UDI."
+      },
+      {
+        "when": "Feb a dic 2025",
+        "where": "Bachiller técnico, Colegio Portal Campestre Norte",
+        "what": "Construí un antebrazo robótico maestro-esclavo: un guante con sensores FSR y acelerómetro en dos Micro:Bit envía los movimientos por radiofrecuencia a un Arduino Nano, que mueve los servomotores de la mano y los dedos en tiempo real."
+      },
+      {
+        "when": "Dic 2025 a hoy",
+        "where": "Técnico en desarrollo de software, Campuslands (Floridablanca)",
+        "what": "Formación intensiva en desarrollo web y backend con Scrum. En la hackathon Visual Agents construimos en equipo una solución con agentes de IA y la entregamos funcionando ante un jurado técnico."
+      }
+    ],
+    "toolsLabel": "Herramientas",
+    "languagesLabel": "Idiomas",
+    "languages": "Español nativo, inglés B1"
   }
 }

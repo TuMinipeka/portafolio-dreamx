@@ -19,6 +19,8 @@ export function SmoothScroll() {
     const lenis = new Lenis({ anchors: true, lerp: 0.09 });
     lenis.on("scroll", ScrollTrigger.update);
     useFlight.getState().setLenis(lenis);
+    // Handle for browser automation in dev: programmatic window.scrollTo is overridden by Lenis.
+    if (process.env.NODE_ENV === "development") Object.assign(window, { __lenis: lenis });
 
     const tick = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(tick);

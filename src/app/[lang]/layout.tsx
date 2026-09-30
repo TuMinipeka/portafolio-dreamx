@@ -23,6 +23,12 @@ const instrument = Instrument_Sans({
   variable: "--font-instrument",
 });
 
+// Server HTML ships fully built (works without JS). Before first paint this
+// script strips the build so the visitor watches it compile, unless they
+// prefer reduced motion, in which case the page is locked in its built state.
+const FULL_BUILD = "layout type color motion";
+const startUnbuilt = `(function(){var d=document.documentElement;try{if(matchMedia("(prefers-reduced-motion: reduce)").matches){d.setAttribute("data-locked","");return}}catch(e){}d.setAttribute("data-build","")})()`;
+
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
@@ -45,7 +51,15 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   const dict = await getDictionary(lang);
 
   return (
-    <html lang={lang} className={`${anybody.variable} ${instrument.variable}`}>
+    <html
+      lang={lang}
+      className={`${anybody.variable} ${instrument.variable}`}
+      data-build={FULL_BUILD}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: startUnbuilt }} />
+      </head>
       <body>
         <a
           href="#main"
@@ -54,7 +68,9 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           {dict.chrome.skip}
         </a>
 
-        <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between px-5 py-4 text-(--ink) md:px-8">
+        <header
+          data-chrome
+          className="fixed inset-x-0 top-0 z-40 flex items-center justify-between px-5 py-4 text-(--ink) md:px-8">
           <Link href={`/${lang}`} aria-label={dict.chrome.home}>
             <LogoMark className="h-7 w-auto" />
           </Link>

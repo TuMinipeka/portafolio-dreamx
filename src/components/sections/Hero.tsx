@@ -1,32 +1,87 @@
 import type { Dictionary } from "@/i18n/dictionaries";
+import { flight } from "@/content/flight";
+import { Compiler } from "./Compiler";
+
+const formatAltitude = (m: number) => (m < 1000 ? `${m} m` : `${m / 1000} km`);
 
 /**
- * Ground level. The manifesto sits on a single hairline that stands for the
- * ground: the first line is set condensed and heavy (feet on the ground),
- * the second takes off into a wide, light cut.
+ * Ground level, and the compile track. The section is five screens tall with a
+ * sticky viewport; scrolling through it builds the page one stage at a time.
+ * Every style here sits behind a b-* variant, so with no build tokens the markup
+ * renders as a plain HTML document (see the compile rules in globals.css).
  */
-export function Hero({ copy }: { copy: Dictionary["hero"] }) {
+export function Hero({ dict }: { dict: Dictionary }) {
+  const copy = dict.hero;
   const [ground, sky] = copy.manifesto;
 
+  const index = [
+    { id: "log", name: dict.log.name },
+    { id: "apex", name: dict.stations.apex.name },
+    { id: "hub", name: dict.stations.hub.name },
+    { id: "tenant", name: dict.stations.tenant.name },
+    { id: "contact", name: copy.contact },
+  ].map((item) => ({
+    ...item,
+    altitude: formatAltitude(flight.find((w) => w.id === item.id)?.altitude ?? 0),
+  }));
+
   return (
-    <section
-      id="hero"
-      aria-labelledby="hero-title"
-      className="flex min-h-svh flex-col justify-end px-5 pt-28 pb-8 md:px-8 md:pr-40"
-    >
-      <div className="mb-auto max-w-[34ch]">
-        <p className="text-step-1 font-medium">{copy.name}</p>
-        <p className="text-step-0 opacity-70">{copy.role}</p>
-      </div>
+    <section id="hero" aria-labelledby="hero-title" className="compile-track relative h-[500svh]">
+      <div className="compile-stage sticky top-0 h-svh overflow-hidden">
+        <div
+          aria-hidden
+          className="grid-guides pointer-events-none absolute inset-0 grid grid-cols-4 gap-4 px-5 md:grid-cols-12 md:px-8 md:pr-40"
+        >
+          {Array.from({ length: 12 }, (_, i) => (
+            <span key={i} className={`bg-[rgb(255_0_0/0.07)] ${i >= 4 ? "max-md:hidden" : ""}`} />
+          ))}
+        </div>
 
-      <h1 id="hero-title" className="mt-16">
-        <span className="manifesto-ground block text-step-5 md:text-step-6">{ground}</span>
-        <span className="manifesto-sky mt-3 block text-step-3 md:text-step-5">{sky}</span>
-      </h1>
+        <div className="compile relative b-layout:flex b-layout:h-full b-layout:flex-col b-layout:justify-end b-layout:px-5 b-layout:pt-24 b-layout:pb-8 md:b-layout:px-8 md:b-layout:pr-40">
+          <div data-flip className="b-layout:mb-auto b-layout:max-w-[34ch]">
+            <p className="b-type:text-step-1 b-type:font-medium">{copy.name}</p>
+            <p className="b-type:text-step-0 b-color:opacity-70">{copy.role}</p>
+          </div>
 
-      <div className="mt-8 flex flex-col gap-6 border-t border-current/40 pt-5 md:flex-row md:items-start md:justify-between">
-        <p className="max-w-[46ch] text-step-0 leading-relaxed">{copy.intro}</p>
-        <p className="text-step--1 opacity-70">{copy.scrollHint}</p>
+          <h1 data-flip id="hero-title" className="b-layout:mt-12">
+            <span className="manifesto-ground b-layout:block b-type:text-step-5 md:b-type:text-step-6">
+              {ground}
+            </span>{" "}
+            <span className="manifesto-sky b-layout:mt-3 b-layout:block b-type:text-step-3 md:b-type:text-step-5">
+              {sky}
+            </span>
+          </h1>
+
+          <div
+            data-flip
+            className="b-layout:mt-8 b-layout:grid b-layout:gap-6 b-layout:border-t b-layout:border-current/40 b-layout:pt-5 md:b-layout:grid-cols-12"
+          >
+            <p className="b-layout:max-w-[46ch] b-type:text-step-0 b-type:leading-relaxed md:b-layout:col-span-6">
+              {copy.intro}
+            </p>
+
+            <nav aria-labelledby="hero-index" className="max-md:b-layout:hidden md:b-layout:col-span-4 md:b-layout:col-start-9">
+              <p id="hero-index" className="b-type:text-step--1 b-color:opacity-70">
+                {copy.index}
+              </p>
+              <ul className="b-layout:mt-2">
+                {index.map((item) => (
+                  <li key={item.id}>
+                    <a
+                      href={`#${item.id}`}
+                      className="b-layout:flex b-layout:justify-between b-layout:gap-4 b-layout:py-0.5 b-type:text-step-0 b-color:no-underline b-color:hover:underline"
+                    >
+                      <span>{item.name}</span>{" "}
+                      <span className="tabular b-color:opacity-70">{item.altitude}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <Compiler copy={dict.compile} />
       </div>
     </section>
   );

@@ -1,6 +1,15 @@
 @import "tailwindcss";
 
 /*
+  Compile stages. <html data-build="layout type color motion"> gains one token per
+  stage as the visitor scrolls the hero. b-* variants apply only once that stage is built.
+*/
+@custom-variant b-layout (&:where([data-build~="layout"] *));
+@custom-variant b-type (&:where([data-build~="type"] *));
+@custom-variant b-color (&:where([data-build~="color"] *));
+@custom-variant b-motion (&:where([data-build~="motion"] *));
+
+/*
   DREAMX flight tokens.
   The page is a climb from the ground to the edge of space: the sky color
   (--sky) is driven by scroll position, everything else stays quiet.
@@ -25,8 +34,8 @@
   --text-step-2: 1.777rem;
   --text-step-3: 2.369rem;
   --text-step-4: clamp(2.369rem, 5vw, 3.157rem);
-  --text-step-5: clamp(2.8rem, 8vw, 5.61rem);
-  --text-step-6: clamp(3.2rem, 11vw, 9.969rem);
+  --text-step-5: clamp(2.4rem, min(8vw, 10svh), 5.61rem);
+  --text-step-6: clamp(2.8rem, min(11vw, 14svh), 9.969rem);
 
   --ease-climb: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -74,26 +83,91 @@ html.lenis body {
   color: var(--color-graphite);
 }
 
-/* The one orchestrated load moment: the second manifesto line takes off,
-   widening from condensed to extra-wide as it lightens. */
+/* ---------- Compile: the page before it is built ----------
+   Tailwind's preflight strips browser defaults, so stage 0 restores the look of
+   an unstyled HTML document: Times, blue links, default margins, white page. */
+html:not([data-build~="color"]),
+html:not([data-build~="color"]) body {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+html:not([data-build~="color"]) .compile a {
+  color: #0000ee;
+  text-decoration: underline;
+}
+html:not([data-build~="type"]) .compile {
+  font-family: "Times New Roman", Times, serif;
+  line-height: normal;
+}
+html:not([data-build~="type"]) .compile h1 {
+  font-size: 2em;
+  font-weight: 700;
+}
+html:not([data-build~="layout"]) .compile {
+  padding: 8px;
+}
+html:not([data-build~="layout"]) .compile h1 {
+  margin: 0.67em 0;
+}
+html:not([data-build~="layout"]) .compile p,
+html:not([data-build~="layout"]) .compile ul {
+  margin: 1em 0;
+}
+html:not([data-build~="layout"]) .compile ul {
+  list-style: disc;
+  padding-left: 40px;
+}
+
+/* Layout grid, shown like a design tool's column overlay while the page is being laid out */
+.grid-guides {
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-climb);
+}
+html[data-build~="layout"]:not([data-build~="color"]) .grid-guides {
+  opacity: 1;
+}
+
+/* Site chrome (header, altimeter) only exists once the page can move */
+[data-chrome],
+[data-compile-ui] {
+  transition:
+    opacity 0.8s var(--ease-climb),
+    visibility 0.8s;
+}
+html:not([data-build~="motion"]) [data-chrome],
+html[data-build~="motion"] [data-compile-ui],
+html[data-locked] [data-compile-ui] {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Reduced motion: no compile track, the page arrives built */
+html[data-locked] .compile-track {
+  height: auto;
+}
+html[data-locked] .compile-track > .compile-stage {
+  position: relative;
+  min-height: 100svh;
+}
+
+/* ---------- Manifesto ----------
+   With type, both lines stand on the ground: condensed and heavy.
+   With motion, the second line takes off into a wide, light cut. */
 @keyframes take-off {
   from {
-    font-variation-settings: "wdth" 50;
+    font-variation-settings: "wdth" 62;
     font-weight: 800;
     letter-spacing: -0.02em;
-    opacity: 0;
-    transform: translateY(0.35em);
   }
   to {
     font-variation-settings: "wdth" 150;
     font-weight: 200;
     letter-spacing: 0;
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 
-.manifesto-ground {
+html[data-build~="type"] .manifesto-ground,
+html[data-build~="type"] .manifesto-sky {
   font-family: var(--font-display);
   font-variation-settings: "wdth" 62;
   font-weight: 800;
@@ -101,12 +175,12 @@ html.lenis body {
   line-height: 0.92;
 }
 
-.manifesto-sky {
-  font-family: var(--font-display);
+html[data-build~="motion"] .manifesto-sky {
   font-variation-settings: "wdth" 150;
   font-weight: 200;
+  letter-spacing: 0;
   line-height: 1;
-  animation: take-off 1.6s var(--ease-climb) 0.3s both;
+  animation: take-off 1.6s var(--ease-climb) both;
 }
 
 .tabular {

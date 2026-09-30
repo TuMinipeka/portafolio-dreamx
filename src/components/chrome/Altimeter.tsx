@@ -26,6 +26,7 @@ export function Altimeter({ locale, layers }: { locale: Locale; layers: Record<L
   return (
     <div
       aria-hidden
+      data-chrome
       className="pointer-events-none fixed right-4 bottom-4 z-40 flex items-end gap-3 text-(--ink) md:top-1/2 md:right-6 md:bottom-auto md:-translate-y-1/2 md:items-center"
     >
       <div className="text-right">

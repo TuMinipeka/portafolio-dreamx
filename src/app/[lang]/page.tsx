@@ -3,6 +3,7 @@ import { hasLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { stations } from "@/content/flight";
 import { Hero } from "@/components/sections/Hero";
+import { Logbook } from "@/components/sections/Logbook";
 import { Station } from "@/components/sections/Station";
 import { Contact } from "@/components/sections/Contact";
 
@@ -13,7 +14,8 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
 
   return (
     <>
-      <Hero copy={dict.hero} />
+      <Hero dict={dict} />
+      <Logbook copy={dict.log} />
       {stations.map((station) => (
         <Station
           key={station.id}

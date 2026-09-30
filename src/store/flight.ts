@@ -11,6 +11,9 @@ type FlightState = {
   /** Smooth-scroll instance. Programmatic scrolls must go through it (window.scrollTo gets overridden). */
   lenis: Lenis | null;
   setLenis: (lenis: Lenis | null) => void;
+  /** Compile stage on the ground: 0 raw HTML, 1 layout, 2 type, 3 color, 4 motion. */
+  stage: number;
+  setStage: (stage: number) => void;
 };
 
 export const useFlight = create<FlightState>((set) => ({
@@ -20,4 +23,6 @@ export const useFlight = create<FlightState>((set) => ({
   setFlight: (next) => set(next),
   lenis: null,
   setLenis: (lenis) => set({ lenis }),
+  stage: 4,
+  setStage: (stage) => set({ stage }),
 }));
