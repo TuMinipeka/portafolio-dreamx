@@ -26,7 +26,7 @@ export function Contact({ copy }: { copy: Dictionary["contact"] }) {
           {copy.heading}
         </h2>
         <p className="mt-6 max-w-[40ch] text-step-1 leading-snug">{copy.body}</p>
-        <p className="mt-10 text-step-0 opacity-70">{copy.email}</p>
+        <p className="mt-10 text-step-0 opacity-80">{copy.email}</p>
         <a
           href={`mailto:${social.email}`}
           className="mt-1 inline-block text-step-2 break-all underline decoration-1 underline-offset-8 hover:decoration-2 md:text-step-3"

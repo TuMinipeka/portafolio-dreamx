@@ -51,11 +51,11 @@ export function Station({ station, copy, labels, lang, openLabel }: Props) {
 
         <dl className="grid gap-5 text-step-0">
           <div>
-            <dt className="text-step--1 opacity-70">{labels.role}</dt>
+            <dt className="text-step--1 opacity-80">{labels.role}</dt>
             <dd className="mt-1 leading-relaxed">{copy.role}</dd>
           </div>
           <div>
-            <dt className="text-step--1 opacity-70">{labels.stack}</dt>
+            <dt className="text-step--1 opacity-80">{labels.stack}</dt>
             <dd className="mt-1">{station.stack.join(", ")}</dd>
           </div>
         </dl>

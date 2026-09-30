@@ -40,7 +40,7 @@ export default async function QuickPage({ params }: PageProps<"/[lang]/quick">) 
 
       <header className="grid gap-6 border-b border-current/30 pb-10 md:grid-cols-12">
         <div className="md:col-span-7">
-          <p className="text-step--1 opacity-70">{q.title}</p>
+          <p className="text-step--1 opacity-80">{q.title}</p>
           <h1 className="mt-2 font-display text-step-4 leading-none font-bold [font-variation-settings:'wdth'_80]">
             {dict.hero.name}
           </h1>
@@ -48,7 +48,7 @@ export default async function QuickPage({ params }: PageProps<"/[lang]/quick">) 
           <p className="mt-6 max-w-[52ch] text-step-0 leading-relaxed">{dict.hero.intro}</p>
         </div>
         <div className="md:col-span-4 md:col-start-9">
-          <h2 className="text-step--1 opacity-70">{q.contact}</h2>
+          <h2 className="text-step--1 opacity-80">{q.contact}</h2>
           <ul className="mt-2 grid gap-1.5 text-step-0">
             {contact.map((c) => (
               <li key={c.href}>
@@ -84,7 +84,7 @@ export default async function QuickPage({ params }: PageProps<"/[lang]/quick">) 
                 <div className="grid gap-2 text-step-0 leading-relaxed md:col-span-8">
                   <p>{copy.summary}</p>
                   <p>
-                    <span className="opacity-70">{dict.station.role}: </span>
+                    <span className="opacity-80">{dict.station.role}: </span>
                     {copy.role}
                   </p>
                   <p className="opacity-80">{s.stack.join(", ")}</p>
@@ -108,7 +108,7 @@ export default async function QuickPage({ params }: PageProps<"/[lang]/quick">) 
         <ol className="grid gap-4 md:col-span-8">
           {dict.log.entries.map((e) => (
             <li key={e.when} className="grid gap-1">
-              <p className="tabular text-step--1 opacity-70">{e.when}</p>
+              <p className="tabular text-step--1 opacity-80">{e.when}</p>
               <p className="text-step-0 font-medium">{e.where}</p>
             </li>
           ))}
@@ -117,11 +117,11 @@ export default async function QuickPage({ params }: PageProps<"/[lang]/quick">) 
 
       <dl className="grid gap-6 py-10 text-step-0 md:grid-cols-12">
         <div className="md:col-span-8">
-          <dt className="text-step--1 opacity-70">{dict.log.toolsLabel}</dt>
+          <dt className="text-step--1 opacity-80">{dict.log.toolsLabel}</dt>
           <dd className="mt-1">{tools.join(", ")}</dd>
         </div>
         <div className="md:col-span-4">
-          <dt className="text-step--1 opacity-70">{dict.log.languagesLabel}</dt>
+          <dt className="text-step--1 opacity-80">{dict.log.languagesLabel}</dt>
           <dd className="mt-1">{dict.log.languages}</dd>
         </div>
       </dl>

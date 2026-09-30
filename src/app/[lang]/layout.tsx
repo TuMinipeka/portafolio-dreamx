@@ -11,6 +11,7 @@ import { LocaleSwitch } from "@/components/chrome/LocaleSwitch";
 import { LogoMark } from "@/components/chrome/LogoMark";
 import { WorldMount } from "@/components/world/WorldMount";
 import { CommandPalette } from "@/components/chrome/CommandPalette";
+import { siteUrl } from "@/lib/site";
 import "../globals.css";
 
 const anybody = Anybody({
@@ -40,10 +41,12 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
   if (!hasLocale(lang)) return {};
   const dict = await getDictionary(lang);
   return {
+    metadataBase: new URL(siteUrl),
     title: dict.meta.title,
     description: dict.meta.description,
     alternates: { languages: { es: "/es", en: "/en" } },
     icons: { icon: "/brand/dreamx-logo.png" },
+    openGraph: { type: "website", locale: lang === "es" ? "es_CO" : "en_US", siteName: "Daniel Mayorga" },
   };
 }
 

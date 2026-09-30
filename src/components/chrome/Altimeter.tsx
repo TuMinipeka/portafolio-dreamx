@@ -33,7 +33,7 @@ export function Altimeter({ locale, layers }: { locale: Locale; layers: Record<L
         <p className="tabular font-display text-step-1 leading-none [font-variation-settings:'wdth'_112] md:text-step-2">
           {formatAltitude(altitude, locale)}
         </p>
-        <p className="mt-1 text-step--1 opacity-70">{layers[layer]}</p>
+        <p className="mt-1 text-step--1 opacity-80">{layers[layer]}</p>
       </div>
 
       <div className="relative hidden h-[40vh] w-3 md:block">

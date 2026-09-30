@@ -79,19 +79,19 @@ export default async function CasePage({ params }: PageProps<"/[lang]/work/[stat
 
         <dl className="mt-12 grid gap-6 border-t border-current/30 pt-6 text-step-0 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <dt className="text-step--1 opacity-70">{labels.role}</dt>
+            <dt className="text-step--1 opacity-80">{labels.role}</dt>
             <dd className="mt-1 leading-relaxed">{study.role}</dd>
           </div>
           <div>
-            <dt className="text-step--1 opacity-70">{labels.team}</dt>
+            <dt className="text-step--1 opacity-80">{labels.team}</dt>
             <dd className="mt-1">{study.team}</dd>
           </div>
           <div>
-            <dt className="text-step--1 opacity-70">{labels.year}</dt>
+            <dt className="text-step--1 opacity-80">{labels.year}</dt>
             <dd className="mt-1 tabular">{study.year}</dd>
           </div>
           <div>
-            <dt className="text-step--1 opacity-70">{labels.stack}</dt>
+            <dt className="text-step--1 opacity-80">{labels.stack}</dt>
             <dd className="mt-1">{meta.stack.join(", ")}</dd>
           </div>
         </dl>
@@ -182,7 +182,7 @@ export default async function CasePage({ params }: PageProps<"/[lang]/work/[stat
 
       <nav aria-label={labels.next} className="border-t border-current/30 pt-10 pb-24">
         <Link href={`/${lang}/work/${nextId}`} className="group block">
-          <span className="text-step-0 opacity-70">{labels.next}</span>
+          <span className="text-step-0 opacity-80">{labels.next}</span>
           <span
             className={`mt-2 block font-display text-step-5 leading-none underline decoration-1 underline-offset-8 group-hover:decoration-2 ${nameCut[nextId]}`}
           >

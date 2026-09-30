@@ -19,7 +19,7 @@ export const flight: Waypoint[] = [
   { id: "hero", layer: "ground", altitude: 0, sky: "#D5D9D8", dark: false },
   { id: "log", layer: "runway", altitude: 120, sky: "#C6D0D4", dark: false },
   { id: "apex", layer: "boundary", altitude: 800, sky: "#AFC2CF", dark: false },
-  { id: "hub", layer: "troposphere", altitude: 6_000, sky: "#5F83A6", dark: true },
+  { id: "hub", layer: "troposphere", altitude: 6_000, sky: "#3B5C80", dark: true },
   { id: "tenant", layer: "stratosphere", altitude: 20_000, sky: "#1B2F5A", dark: true },
   { id: "contact", layer: "karman", altitude: 100_000, sky: "#000000", dark: true },
 ];

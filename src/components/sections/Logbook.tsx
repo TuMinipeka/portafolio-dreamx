@@ -20,11 +20,11 @@ export function Logbook({ copy }: { copy: Dictionary["log"] }) {
 
         <dl className="mt-10 grid max-w-[40ch] gap-5 text-step-0">
           <div>
-            <dt className="text-step--1 opacity-70">{copy.toolsLabel}</dt>
+            <dt className="text-step--1 opacity-80">{copy.toolsLabel}</dt>
             <dd className="mt-1">{tools.join(", ")}</dd>
           </div>
           <div>
-            <dt className="text-step--1 opacity-70">{copy.languagesLabel}</dt>
+            <dt className="text-step--1 opacity-80">{copy.languagesLabel}</dt>
             <dd className="mt-1">{copy.languages}</dd>
           </div>
         </dl>
@@ -33,7 +33,7 @@ export function Logbook({ copy }: { copy: Dictionary["log"] }) {
       <ol className="flex flex-col md:col-span-6 md:col-start-7 md:self-center">
         {copy.entries.map((entry) => (
           <li key={entry.when} className="grid gap-2 border-t border-current/30 py-6 last:border-b">
-            <p className="tabular text-step--1 opacity-70">{entry.when}</p>
+            <p className="tabular text-step--1 opacity-80">{entry.when}</p>
             <h3 className="text-step-1 leading-snug font-medium">{entry.where}</h3>
             <p className="max-w-[56ch] text-step-0 leading-relaxed">{entry.what}</p>
           </li>

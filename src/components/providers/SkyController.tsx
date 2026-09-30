@@ -30,7 +30,7 @@ export function SkyController() {
     const root = document.documentElement;
     const parked = document.querySelector<HTMLElement>("[data-station-page]");
     if (parked) return park(parked.dataset.stationPage ?? "");
-    useFlight.getState().setPresence(1);
+    useFlight.getState().setPresence(narrowScreenPresence());
 
     let anchors: number[] = [];
     let frame = 0;
@@ -93,6 +93,9 @@ export function SkyController() {
   return null;
 }
 
+// On phones text spans the full width, so the 3D lines would cross it: keep them faint.
+const narrowScreenPresence = () => (window.matchMedia("(max-width: 767px)").matches ? 0.35 : 1);
+
 function park(id: string) {
   const root = document.documentElement;
   const index = Math.max(0, flight.findIndex((w) => w.id === id));
@@ -107,7 +110,7 @@ function park(id: string) {
   // Full presence over the case header, then a faint backdrop behind the reading.
   const onScroll = () => {
     const t = Math.min(1, window.scrollY / (window.innerHeight * 0.8));
-    setPresence(1 - t * 0.82);
+    setPresence((1 - t * 0.82) * narrowScreenPresence());
   };
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
