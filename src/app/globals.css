@@ -43,12 +43,17 @@
 :root {
   --sky: var(--color-concrete);
   --ink: var(--color-graphite);
+  /* Continuous build progress, 0 (raw HTML) to 4 (built). The server ships 4. */
+  --build: 4;
   color-scheme: light dark;
 }
 
 html {
-  background: var(--sky);
-  color: var(--ink);
+  /* Derived from --build: the grid draws in over [0.5, 1.1], paint washes in over [2.45, 3.1]. */
+  --guides: clamp(0, calc((var(--build) - 0.5) * 1.6), 1);
+  --paint: clamp(0, calc((var(--build) - 2.45) * 1.6), 1);
+  background: color-mix(in oklab, var(--sky) calc(var(--paint) * 100%), #ffffff);
+  color: color-mix(in oklab, var(--ink) calc(var(--paint) * 100%), #000000);
   font-family: var(--font-sans);
   font-feature-settings: "tnum" 0;
   text-rendering: optimizeLegibility;
@@ -56,7 +61,6 @@ html {
 }
 
 body {
-  background: var(--sky);
   min-height: 100svh;
 }
 
@@ -86,14 +90,15 @@ html.lenis body {
 /* ---------- Compile: the page before it is built ----------
    Tailwind's preflight strips browser defaults, so stage 0 restores the look of
    an unstyled HTML document: Times, blue links, default margins, white page. */
-html:not([data-build~="color"]),
-html:not([data-build~="color"]) body {
-  background: #ffffff !important;
-  color: #000000 !important;
+.compile a {
+  color: color-mix(in oklab, currentColor calc(var(--paint) * 100%), #0000ee);
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in oklab, transparent calc(var(--paint) * 100%), currentColor);
 }
-html:not([data-build~="color"]) .compile a {
-  color: #0000ee;
-  text-decoration: underline;
+.compile a:hover {
+  text-decoration-color: currentColor;
 }
 html:not([data-build~="type"]) .compile {
   font-family: "Times New Roman", Times, serif;
@@ -118,13 +123,14 @@ html:not([data-build~="layout"]) .compile ul {
   padding-left: 40px;
 }
 
-/* Layout grid, shown like a design tool's column overlay while the page is being laid out */
+/* Layout grid, like a design tool's column overlay. Columns draw down one after
+   another as the layout builds, then wash out as the paint comes in. */
 .grid-guides {
-  opacity: 0;
-  transition: opacity 0.6s var(--ease-climb);
+  opacity: calc(1 - var(--paint));
 }
-html[data-build~="layout"]:not([data-build~="color"]) .grid-guides {
-  opacity: 1;
+.grid-guides > span {
+  transform-origin: top;
+  transform: scaleY(clamp(0, calc(var(--guides) * 1.5 - var(--i) * 0.04), 1));
 }
 
 /* Site chrome (header, altimeter) only exists once the page can move */

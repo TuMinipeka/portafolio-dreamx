@@ -27,7 +27,7 @@ const instrument = Instrument_Sans({
 // script strips the build so the visitor watches it compile, unless they
 // prefer reduced motion, in which case the page is locked in its built state.
 const FULL_BUILD = "layout type color motion";
-const startUnbuilt = `(function(){var d=document.documentElement;try{if(matchMedia("(prefers-reduced-motion: reduce)").matches){d.setAttribute("data-locked","");return}}catch(e){}d.setAttribute("data-build","")})()`;
+const startUnbuilt = `(function(){var d=document.documentElement;try{if(matchMedia("(prefers-reduced-motion: reduce)").matches){d.setAttribute("data-locked","");return}}catch(e){}d.setAttribute("data-build","");d.style.setProperty("--build","0")})()`;
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));

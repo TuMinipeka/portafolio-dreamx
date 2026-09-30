@@ -11,16 +11,16 @@ gsap.registerPlugin(Flip, ScrollTrigger);
 
 const TOKENS = ["layout", "type", "color", "motion"] as const;
 
-// Scroll progress through the hero track at which each stage is built.
-// Stage 0 (raw HTML) holds for the first stretch so it reads as intentional.
-const THRESHOLDS = [0.1, 0.3, 0.5, 0.7];
-const stageFor = (progress: number) => THRESHOLDS.filter((t) => progress >= t).length;
+// A stage switches on halfway into its segment of --build, so the continuous
+// effects of that stage (grid drawing, paint washing in) are already moving.
+const stageFor = (build: number) => [0.5, 1.5, 2.5, 3.5].filter((t) => build >= t).length;
 
 /**
- * Drives the compile sequence: as the visitor scrolls the hero track, <html>
- * gains one build token per stage and the b-* variants in the markup switch on.
- * Layout changes are animated with GSAP Flip so elements glide into the grid.
- * Also renders the build log with a way to skip straight to the finished page.
+ * Drives the compile sequence in two layers:
+ *  - Continuous: scroll through the hero track is smoothed into --build (0 to 4).
+ *    CSS derives the grid drawing and the paint wash from it, so nothing jumps.
+ *  - Discrete: font and layout can't be interpolated, so when a stage switches on
+ *    the change is animated in time instead (Flip cascade, words coming into focus).
  */
 export function Compiler({ copy }: { copy: Dictionary["compile"] }) {
   const stage = useFlight((s) => s.stage);
@@ -33,27 +33,86 @@ export function Compiler({ copy }: { copy: Dictionary["compile"] }) {
     }
 
     let current = -1;
+    let flip: gsap.core.Timeline | null = null;
+
     const apply = (next: number) => {
       if (next === current) return;
-      const layoutFlips = (current < 1) !== (next < 1) && current !== -1;
-      const state = layoutFlips ? Flip.getState("[data-flip]") : null;
+      const prev = current;
+      current = next;
+      const had = (n: number) => prev >= n;
+      const has = (n: number) => next >= n;
+      const first = prev === -1;
+
+      const layoutChanged = !first && had(1) !== has(1);
+      const typeChanged = !first && had(2) !== has(2);
+      const motionOn = !first && !had(4) && has(4);
+
+      flip?.progress(1);
+      const state = layoutChanged || typeChanged ? Flip.getState("[data-flip]") : null;
 
       root.dataset.build = TOKENS.slice(0, next).join(" ");
-      current = next;
       useFlight.getState().setStage(next);
 
-      if (state) Flip.from(state, { duration: 0.9, ease: "expo.out" });
+      if (state) {
+        // Blocks glide to their new place one after another, like a layout reflowing.
+        flip = Flip.from(state, {
+          duration: 1.1,
+          ease: "power3.inOut",
+          stagger: 0.05,
+          nested: true,
+        });
+      }
+
+      if (typeChanged) {
+        // New type is set word by word, focusing in from a blur.
+        gsap.fromTo(
+          "[data-word]",
+          { opacity: 0, yPercent: 35, filter: "blur(10px)" },
+          {
+            opacity: 1,
+            yPercent: 0,
+            filter: "blur(0px)",
+            duration: 0.9,
+            ease: "power3.out",
+            stagger: 0.04,
+            clearProps: "filter,transform",
+          },
+        );
+      }
+
+      if (motionOn) {
+        // The logo assembles piece by piece as the site chrome arrives.
+        gsap.fromTo(
+          "header [data-part]",
+          { opacity: 0, yPercent: 40 },
+          { opacity: 1, yPercent: 0, duration: 0.8, ease: "power3.out", stagger: 0.08, delay: 0.2 },
+        );
+      }
     };
 
-    const trigger = ScrollTrigger.create({
-      trigger: "#hero",
-      start: "top top",
-      end: "bottom bottom",
-      onUpdate: (self) => apply(stageFor(self.progress)),
+    // Smoothed build progress: scrub lag turns scroll steps into a glide.
+    const proxy = { build: 0 };
+    const tween = gsap.to(proxy, {
+      build: TOKENS.length,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#hero",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 0.9,
+      },
+      onUpdate: () => {
+        root.style.setProperty("--build", proxy.build.toFixed(3));
+        apply(stageFor(proxy.build));
+      },
     });
-    apply(stageFor(trigger.progress));
+    apply(0);
 
-    return () => trigger.kill();
+    return () => {
+      tween.scrollTrigger?.kill();
+      tween.kill();
+      flip?.kill();
+    };
   }, []);
 
   const skip = () => {
@@ -61,7 +120,7 @@ export function Compiler({ copy }: { copy: Dictionary["compile"] }) {
     if (!hero) return;
     const end = hero.offsetTop + hero.offsetHeight - window.innerHeight;
     const lenis = useFlight.getState().lenis;
-    if (lenis) lenis.scrollTo(end, { duration: 1.6 });
+    if (lenis) lenis.scrollTo(end, { duration: 2.4 });
     else window.scrollTo({ top: end });
   };
 
@@ -77,7 +136,10 @@ export function Compiler({ copy }: { copy: Dictionary["compile"] }) {
           const done = i <= stage;
           const next = i === stage + 1;
           return (
-            <li key={step} className={done ? "" : next ? "opacity-70" : "opacity-35"}>
+            <li
+              key={step}
+              className={`transition-opacity duration-500 ${done ? "" : next ? "opacity-70" : "opacity-35"}`}
+            >
               <span className="inline-block w-5">{done ? "✓" : next ? "›" : "·"}</span>
               {step}
             </li>
@@ -86,10 +148,7 @@ export function Compiler({ copy }: { copy: Dictionary["compile"] }) {
       </ol>
 
       <div aria-hidden className="mt-3 h-px bg-black/15">
-        <div
-          className="h-px bg-black transition-[width] duration-500"
-          style={{ width: `${(stage / TOKENS.length) * 100}%` }}
-        />
+        <div className="h-px bg-black" style={{ width: "calc(var(--build) / 4 * 100%)" }} />
       </div>
 
       <div className="mt-3 flex items-center justify-between gap-4">
