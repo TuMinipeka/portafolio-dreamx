@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "title": "Daniel Mayorga, software developer",
+    "description": "Portfolio of Daniel Santiago Mayorga Tellez. Grounded engineering, high-altitude ideas."
+  },
+  "chrome": {
+    "skip": "Skip to content",
+    "switchLocale": "Leer en español",
+    "altimeter": "Current altitude",
+    "home": "Home, Daniel Mayorga"
+  },
+  "layers": {
+    "ground": "Ground",
+    "boundary": "Boundary layer",
+    "troposphere": "Troposphere",
+    "stratosphere": "Stratosphere",
+    "karman": "Kármán line"
+  },
+  "hero": {
+    "name": "Daniel Santiago Mayorga Tellez",
+    "role": "Junior software developer",
+    "manifesto": ["Grounded engineering.", "High-altitude ideas."],
+    "intro": "I design interfaces and build the system underneath them, from the database to the last animation.",
+    "scrollHint": "Scroll to take off"
+  },
+  "station": {
+    "role": "My part",
+    "stack": "Built with",
+    "open": "Open project"
+  },
+  "stations": {
+    "apex": {
+      "name": "APEX",
+      "kind": "Formula 1 qualifying simulator",
+      "summary": "A desktop app where twenty drivers fight for pole based on their skill, their car, the track and weather that shifts lap by lap. Tracks are drawn with the mouse.",
+      "role": "I designed the mockups and the JavaFX screens, and worked on the domain and the simulation engine.",
+      "facts": ["230 passing tests", "Hexagonal architecture", "28 race events"],
+      "linkLabel": "View the code on GitHub"
+    },
+    "hub": {
+      "name": "Campuslands Access Hub",
+      "kind": "Platform for the Campuslands hackathon",
+      "summary": "It ran real-time attendance, teams, challenges and certificates for hundreds of participants across both days of the event.",
+      "role": "I built the frontend: attendance check-in, role-based views and the executive dashboard.",
+      "facts": ["First production deploy", "Hundreds of participants", "Team of four"],
+      "linkLabel": "See the LinkedIn post"
+    },
+    "tenant": {
+      "name": "TENANT",
+      "kind": "Multi-tenant platform for occupational and road safety management",
+      "summary": "A database where many companies run their workplace and road safety systems without ever seeing each other's data.",
+      "role": "I modeled the data, normalized it to fourth normal form and wrote the business rules in PL/pgSQL.",
+      "facts": ["20 tables in 4NF", "38 procedures, functions and triggers", "Per-company isolation"],
+      "linkLabel": "View the code on GitHub"
+    }
+  },
+  "contact": {
+    "heading": "This is where the atmosphere ends.",
+    "body": "What comes next we can build together. I'm looking for a team where I can learn fast and ship software people use.",
+    "linkedin": "Message me on LinkedIn",
+    "github": "My GitHub",
+    "cv": "Download my CV"
+  }
+}

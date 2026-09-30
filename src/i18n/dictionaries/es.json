@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "title": "Daniel Mayorga, software developer",
+    "description": "Portafolio de Daniel Santiago Mayorga Tellez. Ingeniería con los pies en la tierra, ideas a gran altitud."
+  },
+  "chrome": {
+    "skip": "Saltar al contenido",
+    "switchLocale": "Read in English",
+    "altimeter": "Altitud actual",
+    "home": "Inicio, Daniel Mayorga"
+  },
+  "layers": {
+    "ground": "Suelo",
+    "boundary": "Capa límite",
+    "troposphere": "Troposfera",
+    "stratosphere": "Estratosfera",
+    "karman": "Línea de Kármán"
+  },
+  "hero": {
+    "name": "Daniel Santiago Mayorga Tellez",
+    "role": "Software developer junior",
+    "manifesto": ["Ingeniería con los pies en la tierra.", "Ideas a gran altitud."],
+    "intro": "Diseño interfaces y construyo el sistema que las sostiene, desde la base de datos hasta la última animación.",
+    "scrollHint": "Desliza para despegar"
+  },
+  "station": {
+    "role": "Mi parte",
+    "stack": "Con qué está hecho",
+    "open": "Abrir proyecto"
+  },
+  "stations": {
+    "apex": {
+      "name": "APEX",
+      "kind": "Simulador de clasificación de Fórmula 1",
+      "summary": "Una app de escritorio donde veinte pilotos pelean la pole según su habilidad, su coche, el circuito y un clima que cambia vuelta a vuelta. Los circuitos se dibujan con el mouse.",
+      "role": "Diseñé los mockups y las pantallas en JavaFX, y trabajé en el dominio y el motor de simulación.",
+      "facts": ["230 pruebas en verde", "Arquitectura hexagonal", "28 eventos de carrera"],
+      "linkLabel": "Ver el código en GitHub"
+    },
+    "hub": {
+      "name": "Campuslands Access Hub",
+      "kind": "Plataforma para la hackathon de Campuslands",
+      "summary": "Controló la asistencia en tiempo real, los grupos, los retos y los certificados de cientos de participantes durante los dos días del evento.",
+      "role": "Construí el frontend: el registro de asistencia, las vistas por rol y el dashboard ejecutivo.",
+      "facts": ["Primer despliegue en producción", "Cientos de participantes", "Equipo de cuatro"],
+      "linkLabel": "Ver la publicación en LinkedIn"
+    },
+    "tenant": {
+      "name": "TENANT",
+      "kind": "Plataforma multi-tenant de gestión SST y PESV",
+      "summary": "Una base de datos donde muchas empresas llevan su sistema de seguridad laboral y vial sin ver nunca la información de las demás.",
+      "role": "Modelé los datos, los normalicé hasta cuarta forma normal y programé las reglas de negocio en PL/pgSQL.",
+      "facts": ["20 tablas en 4FN", "38 procedimientos, funciones y triggers", "Aislamiento por empresa"],
+      "linkLabel": "Ver el código en GitHub"
+    }
+  },
+  "contact": {
+    "heading": "Aquí termina la atmósfera.",
+    "body": "Lo que sigue lo podemos construir juntos. Busco un equipo donde aprender rápido y entregar software que la gente use.",
+    "linkedin": "Escríbeme en LinkedIn",
+    "github": "Mi GitHub",
+    "cv": "Descargar mi CV"
+  }
+}

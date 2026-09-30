@@ -1,26 +1,124 @@
 @import "tailwindcss";
 
+/*
+  DREAMX flight tokens.
+  The page is a climb from the ground to the edge of space: the sky color
+  (--sky) is driven by scroll position, everything else stays quiet.
+*/
+@theme {
+  /* Palette */
+  --color-concrete: #d5d9d8; /* ground: the surface we build on */
+  --color-graphite: #16181b; /* ink on light skies */
+  --color-cloud: #f3f5f6; /* ink on dark skies */
+  --color-cobalt: #1b2f5a; /* stratosphere */
+  --color-void: #000000; /* space, where the logo lives */
+  --color-runway: #ffb000; /* runway light: focus, altimeter needle. Use sparingly. */
+
+  /* Type: Anybody (variable width) for display, Instrument Sans for reading */
+  --font-display: var(--font-anybody), system-ui, sans-serif;
+  --font-sans: var(--font-instrument), system-ui, sans-serif;
+
+  /* Perfect-fourth scale (1.333) */
+  --text-step--1: 0.75rem;
+  --text-step-0: 1rem;
+  --text-step-1: 1.333rem;
+  --text-step-2: 1.777rem;
+  --text-step-3: 2.369rem;
+  --text-step-4: clamp(2.369rem, 5vw, 3.157rem);
+  --text-step-5: clamp(2.8rem, 8vw, 5.61rem);
+  --text-step-6: clamp(3.2rem, 11vw, 9.969rem);
+
+  --ease-climb: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --sky: var(--color-concrete);
+  --ink: var(--color-graphite);
+  color-scheme: light dark;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--sky);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "tnum" 0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--sky);
+  min-height: 100svh;
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-runway);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--color-runway);
+  color: var(--color-graphite);
+}
+
+/* The one orchestrated load moment: the second manifesto line takes off,
+   widening from condensed to extra-wide as it lightens. */
+@keyframes take-off {
+  from {
+    font-variation-settings: "wdth" 50;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    opacity: 0;
+    transform: translateY(0.35em);
+  }
+  to {
+    font-variation-settings: "wdth" 150;
+    font-weight: 200;
+    letter-spacing: 0;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.manifesto-ground {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 62;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 0.92;
+}
+
+.manifesto-sky {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 150;
+  font-weight: 200;
+  line-height: 1;
+  animation: take-off 1.6s var(--ease-climb) 0.3s both;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.001ms !important;
+  }
 }
