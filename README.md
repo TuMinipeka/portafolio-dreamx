@@ -20,5 +20,3 @@ Copy `.env.example` to `.env.local`:
 ## Stack
 
 Next.js 16 (App Router) · TypeScript · Tailwind CSS 4 · React Three Fiber + Drei + GLSL · GSAP (ScrollTrigger, Flip) · Lenis · Zustand · cmdk · Anthropic SDK.
-
-Project conventions for contributors and AI assistants live in `CLAUDE.md`.

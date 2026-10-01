@@ -23,7 +23,7 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    // Installed agent skills, not app code:
+    // Local tooling folders (untracked), not app code:
     ".agents/**",
     ".claude/**",
   ]),
