@@ -5,6 +5,7 @@ import { hasLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { social, stations, tools } from "@/content/flight";
 import { BuildComplete } from "@/components/case/BuildComplete";
+import { ProjectLink } from "@/components/transition/ProjectLink";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/quick">): Promise<Metadata> {
   const { lang } = await params;
@@ -92,12 +93,13 @@ export default async function QuickPage({ params }: PageProps<"/[lang]/quick">) 
                     {copy.role}
                   </p>
                   <p className="opacity-80">{s.stack.join(", ")}</p>
-                  <Link
+                  <ProjectLink
                     href={`/${lang}/work/${s.id}`}
+                    station={s.id}
                     className="self-start underline decoration-1 underline-offset-4 hover:decoration-2"
                   >
                     {q.seeCase}
-                  </Link>
+                  </ProjectLink>
                 </div>
               </li>
             );
@@ -105,7 +107,10 @@ export default async function QuickPage({ params }: PageProps<"/[lang]/quick">) 
         </ul>
       </section>
 
-      <section aria-labelledby="quick-trajectory" className="grid gap-6 border-b border-current/30 py-10 md:grid-cols-12">
+      <section
+        aria-labelledby="quick-trajectory"
+        className="grid gap-6 border-b border-current/30 py-10 md:grid-cols-12"
+      >
         <h2 id="quick-trajectory" className="text-step-1 font-medium md:col-span-4">
           {q.trajectory}
         </h2>

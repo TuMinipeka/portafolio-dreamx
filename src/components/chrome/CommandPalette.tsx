@@ -7,6 +7,7 @@ import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { social, stations } from "@/content/flight";
 import { useFlight } from "@/store/flight";
+import { goToProject } from "@/components/transition/orchestrator";
 
 type Props = { lang: Locale; dict: Dictionary };
 
@@ -206,7 +207,7 @@ export function CommandPalette({ lang, dict }: Props) {
                 <Command.Item
                   key={s.id}
                   value={`work ${dict.stations[s.id].name} ${dict.stations[s.id].kind}`}
-                  onSelect={() => run(() => router.push(`${home}/work/${s.id}`))}
+                  onSelect={() => run(() => goToProject(router, `${home}/work/${s.id}`, s.id))}
                   className={item}
                 >
                   <span>{dict.stations[s.id].name}</span>

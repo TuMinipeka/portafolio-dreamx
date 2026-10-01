@@ -202,3 +202,10 @@ html[data-build~="motion"] .manifesto-sky {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Project transitions: while the next page is mounted but not yet "compiled in",
+   keep its moving parts hidden so they can enter in order (see transition/orchestrator.ts). */
+html[data-transition="pending"] main [data-exit],
+html[data-transition="pending"] main [data-shared-title] {
+  visibility: hidden;
+}

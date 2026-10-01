@@ -12,6 +12,7 @@ import { LogoMark } from "@/components/chrome/LogoMark";
 import { WorldMount } from "@/components/world/WorldMount";
 import { CommandPalette } from "@/components/chrome/CommandPalette";
 import { SoundToggle } from "@/components/chrome/SoundToggle";
+import { TransitionLayer } from "@/components/transition/TransitionLayer";
 import { siteUrl } from "@/lib/site";
 import "../globals.css";
 
@@ -98,6 +99,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
         <main id="main" className="relative z-10">
           {children}
         </main>
+        <TransitionLayer arrivedLabel={dict.chrome.arrived} />
 
         <Altimeter locale={lang} layers={dict.layers} />
         <SmoothScroll />

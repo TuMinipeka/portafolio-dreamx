@@ -11,7 +11,9 @@
     "sound": {
       "enable": "Turn sound on",
       "disable": "Mute"
-    }
+    },
+    "arrived": "You arrived at",
+    "stations": "Stations"
   },
   "layers": {
     "ground": "Ground",

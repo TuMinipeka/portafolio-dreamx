@@ -102,10 +102,14 @@ function park(id: string) {
   const waypoint = flight[index];
   const { setFlight, setPresence } = useFlight.getState();
 
-  root.style.setProperty("--sky", waypoint.sky);
-  root.style.setProperty("--ink", waypoint.dark ? "var(--color-cloud)" : "var(--color-graphite)");
-  root.dataset.sky = waypoint.dark ? "dark" : "light";
-  setFlight({ altitude: waypoint.altitude, layer: waypoint.layer, progress: index / (flight.length - 1) });
+  // Arriving through a project transition: the orchestrator is animating the sky and
+  // the altimeter toward this station and sets the final values itself.
+  if (!useFlight.getState().transition) {
+    root.style.setProperty("--sky", waypoint.sky);
+    root.style.setProperty("--ink", waypoint.dark ? "var(--color-cloud)" : "var(--color-graphite)");
+    root.dataset.sky = waypoint.dark ? "dark" : "light";
+    setFlight({ altitude: waypoint.altitude, layer: waypoint.layer, progress: index / (flight.length - 1) });
+  }
 
   // Full presence over the case header, then a faint backdrop behind the reading.
   const onScroll = () => {

@@ -6,6 +6,8 @@ import { hasLocale, locales } from "@/i18n/config";
 import { getCases, getDictionary } from "@/i18n/dictionaries";
 import { stations, type StationId } from "@/content/flight";
 import { BuildComplete } from "@/components/case/BuildComplete";
+import { ProjectLink } from "@/components/transition/ProjectLink";
+import { StationRail } from "@/components/transition/StationRail";
 
 type Figure = { src: string; alt: string; caption: string };
 type CaseStudy = {
@@ -67,17 +69,37 @@ export default async function CasePage({ params }: PageProps<"/[lang]/work/[stat
       <BuildComplete />
 
       <header className="flex min-h-svh flex-col justify-end pt-28 pb-16">
-        <Link
-          href={`/${lang}#${station}`}
-          className="mb-auto self-start text-step-0 underline decoration-1 underline-offset-4 hover:decoration-2"
+        <div className="mb-auto flex flex-wrap items-start justify-between gap-6">
+          <Link
+            href={`/${lang}#${station}`}
+            data-exit="text"
+            className="text-step-0 underline decoration-1 underline-offset-4 hover:decoration-2"
+          >
+            {labels.back}
+          </Link>
+          <StationRail
+            lang={lang}
+            current={station}
+            label={dict.chrome.stations}
+            names={{ apex: dict.stations.apex.name, hub: dict.stations.hub.name, tenant: dict.stations.tenant.name }}
+          />
+        </div>
+
+        <h1
+          data-shared-title
+          tabIndex={-1}
+          className={`outline-none font-display text-step-6 leading-[0.92] break-words ${nameCut[station]}`}
         >
-          {labels.back}
-        </Link>
+          {copy.name}
+        </h1>
+        <p data-exit="text" className="mt-4 max-w-[40ch] text-step-2 leading-snug">
+          {copy.kind}
+        </p>
 
-        <h1 className={`font-display text-step-6 leading-[0.92] break-words ${nameCut[station]}`}>{copy.name}</h1>
-        <p className="mt-4 max-w-[40ch] text-step-2 leading-snug">{copy.kind}</p>
-
-        <dl className="mt-12 grid gap-6 border-t border-current/30 pt-6 text-step-0 sm:grid-cols-2 lg:grid-cols-4">
+        <dl
+          data-exit="text"
+          className="mt-12 grid gap-6 border-t border-current/30 pt-6 text-step-0 sm:grid-cols-2 lg:grid-cols-4"
+        >
           <div>
             <dt className="text-step--1 opacity-80">{labels.role}</dt>
             <dd className="mt-1 leading-relaxed">{study.role}</dd>
@@ -97,15 +119,20 @@ export default async function CasePage({ params }: PageProps<"/[lang]/work/[stat
         </dl>
       </header>
 
-      <p className="max-w-[34ch] py-16 font-display text-step-3 leading-snug font-light [font-variation-settings:'wdth'_112]">
+      <p
+        data-exit="text"
+        className="max-w-[34ch] py-16 font-display text-step-3 leading-snug font-light [font-variation-settings:'wdth'_112]"
+      >
         {study.intro}
       </p>
 
       <section aria-labelledby="challenge" className="grid gap-6 border-t border-current/30 py-16 md:grid-cols-12">
-        <h2 id="challenge" className="text-step-1 font-medium md:col-span-4">
+        <h2 id="challenge" data-exit="text" className="text-step-1 font-medium md:col-span-4">
           {labels.challenge}
         </h2>
-        <p className="max-w-[60ch] text-step-1 leading-relaxed md:col-span-7 md:col-start-6">{study.challenge}</p>
+        <p data-exit="text" className="max-w-[60ch] text-step-1 leading-relaxed md:col-span-7 md:col-start-6">
+          {study.challenge}
+        </p>
       </section>
 
       {study.sections.map((section) => {
@@ -116,13 +143,18 @@ export default async function CasePage({ params }: PageProps<"/[lang]/work/[stat
             className="grid gap-8 border-t border-current/30 py-16 md:grid-cols-12 md:gap-10"
           >
             <div className={section.image ? "md:col-span-4" : "md:col-span-7 md:col-start-6"}>
-              <h2 className="font-display text-step-3 leading-tight font-semibold [font-variation-settings:'wdth'_90]">
+              <h2
+                data-exit="title"
+                className="font-display text-step-3 leading-tight font-semibold [font-variation-settings:'wdth'_90]"
+              >
                 {section.heading}
               </h2>
-              <p className="mt-5 max-w-[56ch] text-step-0 leading-relaxed">{section.body}</p>
+              <p data-exit="text" className="mt-5 max-w-[56ch] text-step-0 leading-relaxed">
+                {section.body}
+              </p>
             </div>
             {section.image && size ? (
-              <figure className="md:col-span-8">
+              <figure data-exit="media" className="md:col-span-8">
                 <Image
                   src={section.image.src}
                   alt={section.image.alt}
@@ -144,7 +176,7 @@ export default async function CasePage({ params }: PageProps<"/[lang]/work/[stat
         </h2>
         <ul className="mt-8 grid gap-10 md:grid-cols-3">
           {study.decisions.map((decision) => (
-            <li key={decision.title}>
+            <li key={decision.title} data-exit="text">
               <h3 className="text-step-1 leading-snug font-medium">{decision.title}</h3>
               <p className="mt-3 max-w-[46ch] text-step-0 leading-relaxed">{decision.body}</p>
             </li>
@@ -158,7 +190,7 @@ export default async function CasePage({ params }: PageProps<"/[lang]/work/[stat
         </h2>
         <dl className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {study.outcome.map((item) => (
-            <div key={item.label} className="flex flex-col-reverse gap-2">
+            <div key={item.label} data-exit="text" className="flex flex-col-reverse gap-2">
               <dt className="max-w-[24ch] text-step-0 leading-snug">{item.label}</dt>
               <dd className="tabular font-display text-step-4 leading-none font-light [font-variation-settings:'wdth'_120]">
                 {item.value}
@@ -181,14 +213,14 @@ export default async function CasePage({ params }: PageProps<"/[lang]/work/[stat
       </section>
 
       <nav aria-label={labels.next} className="border-t border-current/30 pt-10 pb-24">
-        <Link href={`/${lang}/work/${nextId}`} className="group block">
+        <ProjectLink href={`/${lang}/work/${nextId}`} station={nextId} data-exit="text" className="group block">
           <span className="text-step-0 opacity-80">{labels.next}</span>
           <span
             className={`mt-2 block font-display text-step-5 leading-none underline decoration-1 underline-offset-8 group-hover:decoration-2 ${nameCut[nextId]}`}
           >
             {dict.stations[nextId].name}
           </span>
-        </Link>
+        </ProjectLink>
       </nav>
     </article>
   );
