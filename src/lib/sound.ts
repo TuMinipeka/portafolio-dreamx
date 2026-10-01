@@ -106,7 +106,16 @@ export function createEngine() {
     src.stop(t + duration + 0.05);
   };
 
+  // Bus for the per-station soundscapes (see soundscape.ts), under the master fader.
+  const ambience = ctx.createGain();
+  ambience.gain.value = 0.9;
+  ambience.connect(master);
+
   return {
+    /** Low-level access for the soundscapes. */
+    ctx,
+    ambience,
+    noise,
     resume() {
       ctx.resume();
       glide(master.gain, 0.7, 0.6);
