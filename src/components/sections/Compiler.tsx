@@ -90,6 +90,10 @@ export function Compiler({ copy }: { copy: Dictionary["compile"] }) {
       }
     };
 
+    // Start unbuilt *before* the trigger exists: when the page loads already scrolled past
+    // the hero, creating the trigger applies the full build right away and must not be undone.
+    apply(0);
+
     // Smoothed build progress: scrub lag turns scroll steps into a glide.
     const proxy = { build: 0 };
     const tween = gsap.to(proxy, {
@@ -106,7 +110,6 @@ export function Compiler({ copy }: { copy: Dictionary["compile"] }) {
         apply(stageFor(proxy.build));
       },
     });
-    apply(0);
 
     return () => {
       tween.scrollTrigger?.kill();
