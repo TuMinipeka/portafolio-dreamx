@@ -11,6 +11,7 @@ import { LocaleSwitch } from "@/components/chrome/LocaleSwitch";
 import { LogoMark } from "@/components/chrome/LogoMark";
 import { WorldMount } from "@/components/world/WorldMount";
 import { CommandPalette } from "@/components/chrome/CommandPalette";
+import { SoundToggle } from "@/components/chrome/SoundToggle";
 import { siteUrl } from "@/lib/site";
 import "../globals.css";
 
@@ -87,6 +88,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
             >
               {dict.quick.title}
             </Link>
+            <SoundToggle copy={dict.chrome.sound} />
             <CommandPalette lang={lang} dict={dict} />
             <LocaleSwitch locale={lang} label={dict.chrome.switchLocale} />
           </div>

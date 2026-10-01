@@ -107,6 +107,7 @@ export function CommandPalette({ lang, dict }: Props) {
   const sections = [
     { id: "hero", name: dict.hero.name },
     { id: "log", name: dict.log.name },
+    { id: "about", name: dict.about.name },
     ...stations.map((s) => ({ id: s.id, name: dict.stations[s.id].name })),
     { id: "contact", name: dict.hero.contact },
   ];

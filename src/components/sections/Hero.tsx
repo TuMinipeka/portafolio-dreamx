@@ -29,6 +29,7 @@ export function Hero({ dict }: { dict: Dictionary }) {
 
   const index = [
     { id: "log", name: dict.log.name },
+    { id: "about", name: dict.about.name },
     { id: "apex", name: dict.stations.apex.name },
     { id: "hub", name: dict.stations.hub.name },
     { id: "tenant", name: dict.stations.tenant.name },

@@ -1,11 +1,11 @@
 // Language-neutral data for the flight: where each station sits in the sky,
 // the sky color at that altitude, and outbound links. Copy lives in the dictionaries.
 
-export type LayerKey = "ground" | "runway" | "boundary" | "troposphere" | "stratosphere" | "karman";
+export type LayerKey = "ground" | "runway" | "climb" | "boundary" | "troposphere" | "stratosphere" | "karman";
 export type StationId = "apex" | "hub" | "tenant";
 
 export type Waypoint = {
-  id: "hero" | "log" | StationId | "contact";
+  id: "hero" | "log" | "about" | StationId | "contact";
   layer: LayerKey;
   /** Altitude in meters shown by the altimeter when this section is centered. */
   altitude: number;
@@ -18,6 +18,7 @@ export type Waypoint = {
 export const flight: Waypoint[] = [
   { id: "hero", layer: "ground", altitude: 0, sky: "#D5D9D8", dark: false },
   { id: "log", layer: "runway", altitude: 120, sky: "#C6D0D4", dark: false },
+  { id: "about", layer: "climb", altitude: 350, sky: "#BAC8D1", dark: false },
   { id: "apex", layer: "boundary", altitude: 800, sky: "#AFC2CF", dark: false },
   { id: "hub", layer: "troposphere", altitude: 6_000, sky: "#3B5C80", dark: true },
   { id: "tenant", layer: "stratosphere", altitude: 20_000, sky: "#1B2F5A", dark: true },

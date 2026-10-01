@@ -5,6 +5,7 @@ import { social, stations, tools } from "@/content/flight";
 import { siteUrl } from "@/lib/site";
 import { Hero } from "@/components/sections/Hero";
 import { Logbook } from "@/components/sections/Logbook";
+import { FlightPlan } from "@/components/sections/FlightPlan";
 import { Station } from "@/components/sections/Station";
 import { Contact } from "@/components/sections/Contact";
 
@@ -35,6 +36,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       />
       <Hero dict={dict} />
       <Logbook copy={dict.log} />
+      <FlightPlan copy={dict.about} />
       {stations.map((station) => (
         <Station
           key={station.id}

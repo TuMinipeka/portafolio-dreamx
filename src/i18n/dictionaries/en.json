@@ -7,7 +7,11 @@
     "skip": "Skip to content",
     "switchLocale": "Leer en español",
     "altimeter": "Current altitude",
-    "home": "Home, Daniel Mayorga"
+    "home": "Home, Daniel Mayorga",
+    "sound": {
+      "enable": "Turn sound on",
+      "disable": "Mute"
+    }
   },
   "layers": {
     "ground": "Ground",
@@ -15,7 +19,8 @@
     "troposphere": "Troposphere",
     "stratosphere": "Stratosphere",
     "karman": "Kármán line",
-    "runway": "Runway"
+    "runway": "Runway",
+    "climb": "Initial climb"
   },
   "hero": {
     "name": "Daniel Santiago Mayorga Tellez",
@@ -156,5 +161,37 @@
     "contact": "Contact",
     "seeCase": "Read the case",
     "meta": "Daniel Mayorga, quick version"
+  },
+  "about": {
+    "name": "Flight plan",
+    "heading": "Discipline, focus, results.",
+    "intro": "That's what my brand, DREAMX, says, and it's how I work. I'm training as a software developer at Campuslands in Floridablanca, and I care as much about what you see as what holds it up: the interface, the API and the database.",
+    "values": [
+      {
+        "title": "Discipline",
+        "body": "I finish what I start and test it before calling it done. On APEX we closed 59 user stories with 230 passing tests. On TENANT every procedure has the case that must fail and the one that must pass."
+      },
+      {
+        "title": "Focus",
+        "body": "Before writing code I understand the whole problem. TENANT started as a model normalized to fourth normal form, not as a query."
+      },
+      {
+        "title": "Results",
+        "body": "What I build has to work outside my computer: a robot that won a competition at UDI and a platform hundreds of people used at the Campuslands hackathon."
+      }
+    ],
+    "seekingLabel": "What I'm looking for",
+    "seeking": "My first role on a product team, in frontend and UI or in backend and data. I want to learn fast next to experienced people and ship software someone actually uses.",
+    "learningLabel": "What I'm learning",
+    "learning": [
+      "Cloud and DevOps",
+      "Java and Spring Boot",
+      "AI and agents",
+      "Creative development and 3D, like this portfolio"
+    ],
+    "teamLabel": "How I work on a team",
+    "team": "With communication, empathy and adaptability. I practiced them on teams of four with deadlines that didn't move: splitting work, integrating everyone's parts and defending the product in front of a jury.",
+    "offLabel": "Off duty",
+    "off": "Away from code you'll find me playing video games, listening to music or at the gym. I look for things that pull me out of routine and help me get to know myself better."
   }
 }

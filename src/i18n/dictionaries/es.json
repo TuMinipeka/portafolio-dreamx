@@ -7,7 +7,11 @@
     "skip": "Saltar al contenido",
     "switchLocale": "Read in English",
     "altimeter": "Altitud actual",
-    "home": "Inicio, Daniel Mayorga"
+    "home": "Inicio, Daniel Mayorga",
+    "sound": {
+      "enable": "Activar sonido",
+      "disable": "Silenciar"
+    }
   },
   "layers": {
     "ground": "Suelo",
@@ -15,7 +19,8 @@
     "troposphere": "Troposfera",
     "stratosphere": "Estratosfera",
     "karman": "Línea de Kármán",
-    "runway": "Pista"
+    "runway": "Pista",
+    "climb": "Ascenso inicial"
   },
   "hero": {
     "name": "Daniel Santiago Mayorga Tellez",
@@ -156,5 +161,37 @@
     "contact": "Contacto",
     "seeCase": "Ver el caso",
     "meta": "Daniel Mayorga, versión rápida"
+  },
+  "about": {
+    "name": "Plan de vuelo",
+    "heading": "Disciplina, enfoque, resultados.",
+    "intro": "Así dice mi marca, DREAMX, y así trabajo. Me formo como desarrollador de software en Campuslands, en Floridablanca, y me interesa tanto lo que se ve como lo que lo sostiene: la interfaz, la API y la base de datos.",
+    "values": [
+      {
+        "title": "Disciplina",
+        "body": "Termino lo que empiezo y lo pruebo antes de darlo por hecho. En APEX cerramos 59 historias de usuario con 230 pruebas en verde. En TENANT cada procedimiento tiene el caso que debe fallar y el que debe pasar."
+      },
+      {
+        "title": "Enfoque",
+        "body": "Antes de escribir código entiendo el problema completo. TENANT empezó como un modelo normalizado hasta cuarta forma normal, no como una consulta."
+      },
+      {
+        "title": "Resultados",
+        "body": "Lo que construyo tiene que funcionar fuera de mi computador: un robot que ganó un concurso en la UDI y una plataforma que usaron cientos de personas en la hackathon de Campuslands."
+      }
+    ],
+    "seekingLabel": "Lo que busco",
+    "seeking": "Mi primer rol en un equipo de producto, en frontend y UI o en backend y datos. Quiero aprender rápido al lado de gente con experiencia y entregar software que alguien use.",
+    "learningLabel": "Lo que estoy aprendiendo",
+    "learning": [
+      "Cloud y DevOps",
+      "Java y Spring Boot",
+      "IA y agentes",
+      "Desarrollo creativo y 3D, como este portafolio"
+    ],
+    "teamLabel": "Cómo trabajo en equipo",
+    "team": "Con comunicación, empatía y adaptabilidad. Lo practiqué en equipos de cuatro con fechas que no se movían: repartiendo tareas, integrando el trabajo de todos y defendiendo el producto ante un jurado.",
+    "offLabel": "Fuera de cabina",
+    "off": "Fuera del código me encuentras jugando videojuegos, escuchando música o en el gimnasio. Busco actividades que me saquen de la rutina y me ayuden a conocerme mejor."
   }
 }

@@ -52,6 +52,7 @@ function systemPrompt(locale: Locale) {
       tools,
     },
     logbook: dict.log,
+    about: dict.about,
     projects: stations.map((s) => ({
       ...dict.stations[s.id],
       stack: s.stack,

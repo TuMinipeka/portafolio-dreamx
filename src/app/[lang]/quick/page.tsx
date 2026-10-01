@@ -45,7 +45,11 @@ export default async function QuickPage({ params }: PageProps<"/[lang]/quick">) 
             {dict.hero.name}
           </h1>
           <p className="mt-3 text-step-1">{dict.hero.role}</p>
-          <p className="mt-6 max-w-[52ch] text-step-0 leading-relaxed">{dict.hero.intro}</p>
+          <p className="mt-6 max-w-[52ch] text-step-0 leading-relaxed">{dict.about.intro}</p>
+          <p className="mt-4 max-w-[52ch] text-step-0 leading-relaxed">
+            <span className="opacity-80">{dict.about.seekingLabel}: </span>
+            {dict.about.seeking}
+          </p>
         </div>
         <div className="md:col-span-4 md:col-start-9">
           <h2 className="text-step--1 opacity-80">{q.contact}</h2>
@@ -119,6 +123,10 @@ export default async function QuickPage({ params }: PageProps<"/[lang]/quick">) 
         <div className="md:col-span-8">
           <dt className="text-step--1 opacity-80">{dict.log.toolsLabel}</dt>
           <dd className="mt-1">{tools.join(", ")}</dd>
+        </div>
+        <div className="md:col-span-8">
+          <dt className="text-step--1 opacity-80">{dict.about.learningLabel}</dt>
+          <dd className="mt-1">{dict.about.learning.join(", ")}</dd>
         </div>
         <div className="md:col-span-4">
           <dt className="text-step--1 opacity-80">{dict.log.languagesLabel}</dt>
