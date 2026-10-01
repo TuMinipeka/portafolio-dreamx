@@ -96,7 +96,7 @@ export function Runway() {
     const fold = MathUtils.smoothstep(atmosphere.progress * SEGMENTS, 0, 1);
     if (hinge.current) hinge.current.rotation.x = -fold * (Math.PI / 2);
 
-    const fadeOut = (1 - MathUtils.smoothstep(atmosphere.progress * SEGMENTS, 1.6, 2.4)) * atmosphere.presence;
+    const fadeOut = (1 - MathUtils.smoothstep(atmosphere.progress * SEGMENTS, 1.3, 1.9)) * atmosphere.presence;
     const uniforms = sheet.material.uniforms;
     uniforms.uColor.value.copy(atmosphere.ink);
     uniforms.uOpacity.value = MathUtils.smoothstep(fold, 0, 0.35) * 0.6 * fadeOut;

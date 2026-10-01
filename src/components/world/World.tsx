@@ -4,7 +4,13 @@ import { Canvas } from "@react-three/fiber";
 import { flight } from "@/content/flight";
 import { Rig } from "./Rig";
 import { Runway } from "./Runway";
-import { Attendance, Circuit, Stars, Strata } from "./stations";
+import { Attendance } from "./Attendance";
+import { Circuit } from "./Circuit";
+import { Constellation } from "./Constellation";
+import { Logo3D } from "./Logo3D";
+import { RobotArm } from "./RobotArm";
+import { Stars } from "./Stars";
+import { Strata } from "./Strata";
 
 const at = (id: (typeof flight)[number]["id"]) => flight.findIndex((w) => w.id === id);
 
@@ -32,11 +38,15 @@ export default function World() {
       style={{ pointerEvents: "none" }}
     >
       <Rig />
+      <ambientLight intensity={0.5} />
       <Runway />
+      <RobotArm index={at("log")} />
+      <Constellation index={at("about")} />
       <Circuit index={at("apex")} />
       <Attendance index={at("hub")} />
       <Strata index={at("tenant")} />
       <Stars index={at("contact")} />
+      <Logo3D index={at("contact")} />
     </Canvas>
   );
 }

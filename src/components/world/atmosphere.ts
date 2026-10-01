@@ -23,6 +23,13 @@ export const atmosphere = {
   progress: 0,
   /** Smoothed world presence; every object's opacity is multiplied by it. */
   presence: 1,
+  /** Smoothed cursor in normalized device coordinates (-1..1). The canvas never takes
+   *  pointer events, so objects react to where the cursor is, not to clicks on them. */
+  pointer: { x: 0, y: 0 },
+  /** True while the primary button or a touch is held down. */
+  pressed: false,
+  /** World x of the right-hand "stage" column where station objects stand. 0 on narrow screens. */
+  stageX: 0,
 };
 
 export function sampleAtmosphere(progress: number) {
