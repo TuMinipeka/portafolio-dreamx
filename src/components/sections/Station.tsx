@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Dictionary } from "@/i18n/dictionaries";
+import { LiveCheckins } from "./LiveCheckins";
 import type { Locale } from "@/i18n/config";
 import type { StationId, stations } from "@/content/flight";
 
@@ -22,26 +23,23 @@ type Props = {
 export function Station({ station, copy, labels, lang, openLabel }: Props) {
   const titleId = `${station.id}-title`;
 
+  const hint = station.id === "hub" ? labels.hubHint : station.id === "tenant" ? labels.tenantHint : null;
+
   return (
     <section
       id={station.id}
       aria-labelledby={titleId}
       className="grid min-h-svh content-center gap-10 px-5 py-28 md:grid-cols-12 md:px-8 md:pr-40"
     >
-      <header className="md:col-span-7">
-        <h2
-          id={titleId}
-          className={`font-display text-step-5 leading-[0.95] break-words ${nameCut[station.id]}`}
-        >
-          {copy.name}
-        </h2>
-        <p className="mt-4 max-w-[36ch] text-step-1">{copy.kind}</p>
-      </header>
+      <div className="flex flex-col gap-8 md:col-span-5">
+        <header>
+          <h2 id={titleId} className={`font-display text-step-5 leading-[0.95] break-words ${nameCut[station.id]}`}>
+            {copy.name}
+          </h2>
+          <p className="mt-4 max-w-[30ch] text-step-1">{copy.kind}</p>
+        </header>
 
-      <div className="flex max-w-[52ch] flex-col gap-8 md:col-span-5 md:self-end">
-        <p className="text-step-0 leading-relaxed">{copy.summary}</p>
-
-        <ul className="flex flex-col border-t border-current/30">
+        <ul className="flex max-w-[36ch] flex-col border-t border-current/30">
           {copy.facts.map((fact) => (
             <li key={fact} className="border-b border-current/30 py-2 text-step-0">
               {fact}
@@ -49,16 +47,12 @@ export function Station({ station, copy, labels, lang, openLabel }: Props) {
           ))}
         </ul>
 
-        <dl className="grid gap-5 text-step-0">
-          <div>
-            <dt className="text-step--1 opacity-80">{labels.role}</dt>
-            <dd className="mt-1 leading-relaxed">{copy.role}</dd>
-          </div>
-          <div>
-            <dt className="text-step--1 opacity-80">{labels.stack}</dt>
-            <dd className="mt-1">{station.stack.join(", ")}</dd>
-          </div>
-        </dl>
+        {station.id === "hub" ? <LiveCheckins label={labels.liveCheckins} /> : null}
+        {hint ? (
+          <p aria-hidden className="hidden max-w-[36ch] text-step--1 opacity-80 pointer-fine:block">
+            {hint}
+          </p>
+        ) : null}
 
         <div className="flex flex-col items-start gap-3">
           <Link
@@ -77,6 +71,9 @@ export function Station({ station, copy, labels, lang, openLabel }: Props) {
           </a>
         </div>
       </div>
+
+      {/* The station's 3D instrument stands in this column. */}
+      <div aria-hidden className="hidden md:col-span-7 md:block" />
     </section>
   );
 }

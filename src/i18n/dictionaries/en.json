@@ -36,7 +36,10 @@
   "station": {
     "role": "My part",
     "stack": "Built with",
-    "open": "Open project"
+    "open": "Open project",
+    "liveCheckins": "simulated check-ins, live",
+    "tenantHint": "Hover a company: only its own data path lights up.",
+    "hubHint": "Move the cursor through the crowd: people step aside."
   },
   "stations": {
     "apex": {
@@ -119,7 +122,14 @@
     ],
     "toolsLabel": "Tools",
     "languagesLabel": "Languages",
-    "languages": "Native Spanish, English B1"
+    "languages": "Native Spanish, English B1",
+    "short": "Before I wrote software, I built things that move.",
+    "entriesShort": [
+      "WALL-E-inspired robot. First place at UDI's competition.",
+      "Robotic forearm that copies the movements of a glove.",
+      "Web and backend development. Visual Agents hackathon."
+    ],
+    "hint": "Move the cursor and the arm follows. Click to close the hand."
   },
   "palette": {
     "open": "Navigate",
@@ -192,6 +202,14 @@
     "teamLabel": "How I work on a team",
     "team": "With communication, empathy and adaptability. I practiced them on teams of four with deadlines that didn't move: splitting work, integrating everyone's parts and defending the product in front of a jury.",
     "offLabel": "Off duty",
-    "off": "Away from code you'll find me playing video games, listening to music or at the gym. I look for things that pull me out of routine and help me get to know myself better."
+    "off": "Away from code you'll find me playing video games, listening to music or at the gym. I look for things that pull me out of routine and help me get to know myself better.",
+    "valuesShort": [
+      "I finish what I start, and I test it.",
+      "I understand the problem before writing code.",
+      "What I build works outside my computer."
+    ],
+    "seekingShort": "Looking for my first role in frontend or backend.",
+    "offShort": "Off duty: video games, music and the gym.",
+    "hint": "My tools, linked to the projects I used them in. In italics, what I'm learning."
   }
 }

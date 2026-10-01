@@ -36,7 +36,10 @@
   "station": {
     "role": "Mi parte",
     "stack": "Con qué está hecho",
-    "open": "Abrir proyecto"
+    "open": "Abrir proyecto",
+    "liveCheckins": "check-ins simulados en vivo",
+    "tenantHint": "Pasa el cursor por una empresa: solo se ilumina su propio camino de datos.",
+    "hubHint": "Pasa el cursor entre la gente: te abren paso."
   },
   "stations": {
     "apex": {
@@ -119,7 +122,14 @@
     ],
     "toolsLabel": "Herramientas",
     "languagesLabel": "Idiomas",
-    "languages": "Español nativo, inglés B1"
+    "languages": "Español nativo, inglés B1",
+    "short": "Antes de escribir software construía cosas que se mueven.",
+    "entriesShort": [
+      "Robot inspirado en WALL-E. Primer puesto en el concurso de la UDI.",
+      "Antebrazo robótico que copia los movimientos de un guante.",
+      "Desarrollo web y backend. Hackathon Visual Agents."
+    ],
+    "hint": "Mueve el cursor y el brazo te sigue. Haz clic para cerrar la mano."
   },
   "palette": {
     "open": "Navegar",
@@ -192,6 +202,14 @@
     "teamLabel": "Cómo trabajo en equipo",
     "team": "Con comunicación, empatía y adaptabilidad. Lo practiqué en equipos de cuatro con fechas que no se movían: repartiendo tareas, integrando el trabajo de todos y defendiendo el producto ante un jurado.",
     "offLabel": "Fuera de cabina",
-    "off": "Fuera del código me encuentras jugando videojuegos, escuchando música o en el gimnasio. Busco actividades que me saquen de la rutina y me ayuden a conocerme mejor."
+    "off": "Fuera del código me encuentras jugando videojuegos, escuchando música o en el gimnasio. Busco actividades que me saquen de la rutina y me ayuden a conocerme mejor.",
+    "valuesShort": [
+      "Termino lo que empiezo y lo pruebo.",
+      "Entiendo el problema antes de escribir código.",
+      "Lo que construyo funciona fuera de mi computador."
+    ],
+    "seekingShort": "Busco mi primer rol en frontend o backend.",
+    "offShort": "Fuera del código: videojuegos, música y gimnasio.",
+    "hint": "Mis herramientas, conectadas a los proyectos donde las usé. En cursiva, lo que estoy aprendiendo."
   }
 }

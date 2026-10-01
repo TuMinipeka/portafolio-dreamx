@@ -36,7 +36,11 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       />
       <Hero dict={dict} />
       <Logbook copy={dict.log} />
-      <FlightPlan copy={dict.about} />
+      <FlightPlan
+        copy={dict.about}
+        languages={{ label: dict.log.languagesLabel, value: dict.log.languages }}
+        toolsLabel={dict.log.toolsLabel}
+      />
       {stations.map((station) => (
         <Station
           key={station.id}
