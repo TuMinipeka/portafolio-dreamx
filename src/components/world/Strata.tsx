@@ -4,6 +4,8 @@ import { Line } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import { Group, MathUtils, Mesh, MeshBasicMaterial, Vector3 } from "three";
+import { sound } from "@/lib/sound";
+import { emit, sonic } from "@/lib/sonic";
 import { atmosphere, proximity } from "./atmosphere";
 import { Anchor, cursorDistance, paintLines, reduceMotion, type LineRef } from "./stage";
 
@@ -32,6 +34,7 @@ export function Strata({ index }: { index: number }) {
   const linkRefs = useRef<(LineRef | null)[]>([]);
   const pulseRefs = useRef<(Mesh | null)[]>([]);
   const focus = useRef<number[]>(Array(TENANTS).fill(1));
+  const arrivals = useRef<number[]>(Array(TENANTS).fill(0));
   const still = useMemo(() => reduceMotion(), []);
   const clock = useRef(0);
   const { camera, size } = useThree();
@@ -71,6 +74,8 @@ export function Strata({ index }: { index: number }) {
       });
     }
 
+    sonic.level.tenant = fade;
+    sonic.tenantFocus = hovered;
     paintLines(strataRefs.current, 0.18 * fade);
     paintLines([coreRef.current], 0.8 * fade);
     for (let i = 0; i < TENANTS; i++) {
@@ -84,6 +89,12 @@ export function Strata({ index }: { index: number }) {
       if (pulse) {
         // A pulse per tenant: core to island and back. Never island to island.
         const t = (Math.sin(clock.current * 0.9 * focus.current[i] + i * 1.3) + 1) / 2;
+        // Sound: a click each time a packet reaches its tenant, panned to where that tenant is.
+        if (t > 0.985 && arrivals.current[i] <= 0.985) {
+          const angle = (i / TENANTS) * Math.PI * 2 + 0.3 + g.rotation.y;
+          emit({ type: "packet", tenant: i, pan: Math.cos(angle) * 0.8 }, !!sound.engine && fade > 0.2);
+        }
+        arrivals.current[i] = t;
         pulse.position.lerpVectors(shape.links[i][0], shape.links[i][1], t);
         pulse.scale.setScalar(focus.current[i]);
         const material = pulse.material as MeshBasicMaterial;

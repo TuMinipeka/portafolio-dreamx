@@ -4,6 +4,7 @@ import { useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import { ExtrudeGeometry, Group, MathUtils, MeshStandardMaterial } from "three";
 import { SVGLoader } from "three/examples/jsm/loaders/SVGLoader.js";
+import { sonic } from "@/lib/sonic";
 import { atmosphere, proximity } from "./atmosphere";
 import { Anchor, reduceMotion } from "./stage";
 
@@ -53,8 +54,18 @@ export function Logo3D({ index }: { index: number }) {
     const g = group.current;
     if (!g) return;
     g.position.y = Math.sin(clock.current * 0.9) * 0.12;
-    g.rotation.y = MathUtils.damp(g.rotation.y, atmosphere.pointer.x * 0.7 + Math.sin(clock.current * 0.3) * 0.25, 3, dt);
+    const before = g.rotation.y;
+    g.rotation.y = MathUtils.damp(
+      g.rotation.y,
+      atmosphere.pointer.x * 0.7 + Math.sin(clock.current * 0.3) * 0.25,
+      3,
+      dt,
+    );
     g.rotation.x = MathUtils.damp(g.rotation.x, -atmosphere.pointer.y * 0.35, 3, dt);
+
+    // Sound: the bell rings when the mark starts turning.
+    sonic.level.contact = fade;
+    sonic.logoSpin = Math.abs(g.rotation.y - before) / Math.max(dt, 0.001);
   });
 
   return (

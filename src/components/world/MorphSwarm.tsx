@@ -83,7 +83,10 @@ function toWorld(shape: Shape, points: Float32Array) {
     new Vector3(1, 1, 1),
   );
   const v = new Vector3();
-  for (let i = 0; i < COUNT; i++) v.fromArray(points, i * 3).applyMatrix4(matrix).toArray(points, i * 3);
+  for (let i = 0; i < COUNT; i++)
+    v.fromArray(points, i * 3)
+      .applyMatrix4(matrix)
+      .toArray(points, i * 3);
 }
 
 const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);

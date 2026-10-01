@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useFlight } from "@/store/flight";
 import { createEngine, sound, type SoundEngine } from "@/lib/sound";
+import { startSoundscape } from "@/lib/soundscape";
+import { sonic } from "@/lib/sonic";
 
 type Copy = { enable: string; disable: string };
 
@@ -21,6 +23,9 @@ export function SoundToggle({ copy }: { copy: Copy }) {
     const audio = engine.current;
     audio.resume();
     sound.engine = audio;
+    const stopSoundscape = startSoundscape(audio);
+    // Handle for browser automation in dev: lets tests read what the 3D world tells the sound.
+    if (process.env.NODE_ENV === "development") Object.assign(window, { __sonic: sonic, __audio: audio });
 
     const unsubscribeFlight = useFlight.subscribe((s) => audio.fly(s.progress));
     audio.fly(useFlight.getState().progress);
@@ -42,6 +47,7 @@ export function SoundToggle({ copy }: { copy: Copy }) {
       unsubscribeStage();
       document.removeEventListener("pointerover", onHover);
       sound.engine = null;
+      stopSoundscape();
       audio.suspend();
     };
   }, [on]);

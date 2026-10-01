@@ -5,6 +5,8 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
 import { Group, MathUtils, Mesh, MeshBasicMaterial, Vector3 } from "three";
 import { stations, tools } from "@/content/flight";
+import { sound } from "@/lib/sound";
+import { emit, sonic } from "@/lib/sonic";
 import { atmosphere, proximity } from "./atmosphere";
 import { Anchor, cursorDistance, paintLines, reduceMotion, type LineRef } from "./stage";
 
@@ -90,6 +92,7 @@ export function Constellation({ index }: { index: number }) {
   const glow = useRef<number[]>(graph.nodes.map(() => 1));
   const still = useMemo(() => reduceMotion(), []);
   const clock = useRef(0);
+  const lastHover = useRef(-1);
   const { camera, size, gl } = useThree();
   const projected = useMemo(() => new Vector3(), []);
 
@@ -149,6 +152,16 @@ export function Constellation({ index }: { index: number }) {
         }
       });
     }
+
+    // Sound: a star rings its note; a project plays the notes of the tools it was built with.
+    sonic.level.about = fade;
+    if (hovered !== lastHover.current && hovered !== -1) {
+      const listening = !!sound.engine;
+      if (graph.nodes[hovered].kind === "project")
+        emit({ type: "arpeggio", notes: [...neighbors[hovered]].sort((a, b) => a - b) }, listening);
+      else emit({ type: "star", note: hovered }, listening);
+    }
+    lastHover.current = hovered;
 
     graph.nodes.forEach((node, i) => {
       const lit = hovered === -1 || hovered === i || neighbors[hovered].has(i);

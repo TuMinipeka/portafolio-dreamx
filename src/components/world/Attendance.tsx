@@ -3,8 +3,20 @@
 import { Line } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
-import { BufferGeometry, Float32BufferAttribute, Group, Plane, PointsMaterial, Raycaster, Vector2, Vector3 } from "three";
+import {
+  BufferGeometry,
+  Float32BufferAttribute,
+  Group,
+  MathUtils,
+  Plane,
+  PointsMaterial,
+  Raycaster,
+  Vector2,
+  Vector3,
+} from "three";
 import { useLive } from "@/store/live";
+import { sound } from "@/lib/sound";
+import { emit, sonic } from "@/lib/sonic";
 import { atmosphere, proximity } from "./atmosphere";
 import { Anchor, paintLines, reduceMotion, type LineRef } from "./stage";
 
@@ -105,7 +117,15 @@ export function Attendance({ index }: { index: number }) {
       positions.setXYZ(i, x, 0, z);
     }
     positions.needsUpdate = true;
-    if (arrived && fade > 0.3) for (let n = 0; n < arrived; n++) useLive.getState().checkIn();
+    if (arrived && fade > 0.3) {
+      for (let n = 0; n < arrived; n++) useLive.getState().checkIn();
+      emit({ type: "checkin" }, !!sound.engine);
+    }
+
+    // Sound: the crowd opens up around the cursor.
+    sonic.level.hub = fade;
+    const inside = Number.isFinite(cx) ? 1 - MathUtils.clamp(Math.hypot(cx, cz) / OUTER, 0, 1) : 0;
+    sonic.crowdCursor = MathUtils.damp(sonic.crowdCursor, inside, 4, Math.max(dt, 0.016));
 
     crowd.material.color.copy(atmosphere.ink);
     crowd.material.opacity = 0.85 * fade;

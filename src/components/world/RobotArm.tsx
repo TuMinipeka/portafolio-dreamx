@@ -3,6 +3,8 @@
 import { useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import { CylinderGeometry, Group, MathUtils } from "three";
+import { sound } from "@/lib/sound";
+import { emit, sonic } from "@/lib/sonic";
 import { atmosphere, proximity } from "./atmosphere";
 import { Anchor, box, reduceMotion, Solid, useSolidMaterials } from "./stage";
 
@@ -28,6 +30,7 @@ export function RobotArm({ index }: { index: number }) {
   const grip = useRef(0);
   const clock = useRef(0);
   const still = useMemo(() => reduceMotion(), []);
+  const previous = useRef({ angles: 0, pressed: false });
 
   useFrame((_, delta) => {
     const fade = proximity(index);
@@ -48,6 +51,22 @@ export function RobotArm({ index }: { index: number }) {
     tips.current.forEach((t) => (t.rotation.x = grip.current * 1.1));
 
     materials.paint(fade);
+
+    // Sound: the servo follows how fast the joints are moving; the gripper clacks.
+    const angles =
+      (yaw.current?.rotation.y ?? 0) + (shoulder.current?.rotation.x ?? 0) + (elbow.current?.rotation.x ?? 0);
+    sonic.level.log = fade;
+    sonic.armSpeed = MathUtils.damp(
+      sonic.armSpeed,
+      Math.abs(angles - previous.current.angles) / Math.max(dt, 0.001),
+      10,
+      dt,
+    );
+    previous.current.angles = angles;
+    if (atmosphere.pressed !== previous.current.pressed) {
+      emit({ type: "grip", closed: atmosphere.pressed }, !!sound.engine && fade > 0.2);
+      previous.current.pressed = atmosphere.pressed;
+    }
   });
 
   return (
