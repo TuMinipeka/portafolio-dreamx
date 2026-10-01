@@ -9,7 +9,7 @@ import { Anchor, box, paintLines, reduceMotion, Solid, useSolidMaterials, type L
 
 /* APEX: a circuit with a low-poly single-seater on a flying lap. */
 
-const CIRCUIT = [
+export const CIRCUIT = [
   [-3, 0],
   [-2.3, -1.3],
   [-0.7, -1.6],

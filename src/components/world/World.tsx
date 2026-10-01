@@ -8,6 +8,7 @@ import { Attendance } from "./Attendance";
 import { Circuit } from "./Circuit";
 import { Constellation } from "./Constellation";
 import { Logo3D } from "./Logo3D";
+import { MorphSwarm } from "./MorphSwarm";
 import { RobotArm } from "./RobotArm";
 import { Stars } from "./Stars";
 import { Strata } from "./Strata";
@@ -47,6 +48,7 @@ export default function World() {
       <Strata index={at("tenant")} />
       <Stars index={at("contact")} />
       <Logo3D index={at("contact")} />
+      <MorphSwarm />
     </Canvas>
   );
 }

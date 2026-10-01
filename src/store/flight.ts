@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import type Lenis from "lenis";
-import type { LayerKey } from "@/content/flight";
+import type { LayerKey, StationId } from "@/content/flight";
 
 type FlightState = {
   altitude: number;
@@ -17,6 +17,9 @@ type FlightState = {
   /** How present the 3D world is (1 full, lower while reading a case study). */
   presence: number;
   setPresence: (presence: number) => void;
+  /** A project-to-project transition in flight (see components/transition). */
+  transition: { from: StationId | null; to: StationId; start: number } | null;
+  setTransition: (transition: FlightState["transition"]) => void;
 };
 
 export const useFlight = create<FlightState>((set) => ({
@@ -30,4 +33,6 @@ export const useFlight = create<FlightState>((set) => ({
   setStage: (stage) => set({ stage }),
   presence: 1,
   setPresence: (presence) => set({ presence }),
+  transition: null,
+  setTransition: (transition) => set({ transition }),
 }));

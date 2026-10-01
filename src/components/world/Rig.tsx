@@ -44,10 +44,11 @@ export function Rig() {
   }, [scene, camera]);
 
   useFrame(({ size }, delta) => {
-    const { progress: goal, presence } = useFlight.getState();
+    const { progress: goal, presence, transition } = useFlight.getState();
     const dt = Math.min(delta, 0.5);
     const progress = MathUtils.damp(atmosphere.progress, goal, 4, dt);
-    atmosphere.presence = MathUtils.damp(atmosphere.presence, presence, 5, dt);
+    // During a project transition the station objects step aside for the morph swarm.
+    atmosphere.presence = MathUtils.damp(atmosphere.presence, transition ? 0 : presence, transition ? 12 : 5, dt);
     sampleAtmosphere(progress);
 
     const y = progress * SEGMENTS * GAP + 1.2;
