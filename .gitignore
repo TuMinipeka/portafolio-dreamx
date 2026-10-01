@@ -41,3 +41,10 @@ yarn-error.log*
 next-env.d.ts
 node_modules
 !.env.example
+
+# local editor and assistant configuration
+CLAUDE.md
+AGENTS.md
+.claude/
+.agents/
+skills-lock.json
